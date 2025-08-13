@@ -1,18 +1,12 @@
 {
-  "name": "vite-plugin-meteor-api-types",
+  "name": "@meteor-vite/plugin-meteor-api-types",
   "version": "1.0.0",
   "description": "",
   "license": "ISC",
   "author": "Jørgen Vatle <Jorgen@WcAServices.net> (https://github.com/JorgenVatle)",
   "type": "commonjs",
   "main": "index.js",
-  "directories": {
-    "example": "example"
-  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "workspaces": [
-    "packages/plugin-meteor-api-types"
-  ]
+  }
 }
