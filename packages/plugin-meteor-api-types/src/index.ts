@@ -1,0 +1,1 @@
+ export { meteorApiTypesPlugin, type PluginConfiguration } from './plugin';
