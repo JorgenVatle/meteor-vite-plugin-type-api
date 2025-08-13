@@ -1,3 +1,4 @@
+import { meteorApiTypesPlugin } from '@meteor-vite/plugin-meteor-api-types';
 import TailwindCSS from '@tailwindcss/vite';
 import Vue from '@vitejs/plugin-vue';
 import { meteor } from 'meteor-vite/plugin';
@@ -14,6 +15,7 @@ export default defineConfig({
                 warnOnly: true,
             }
         }),
+        meteorApiTypesPlugin(),
         VueRouter({
             routesFolder: ['ui/pages']
         }),
