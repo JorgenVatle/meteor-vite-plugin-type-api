@@ -1,0 +1,33 @@
+# Editor configs and other unnecessary project files
+.idea
+.changeset
+.github
+.kubernetes
+.git
+
+# Meteor and npm package stores
+**/node_modules
+**/.meteor/local
+**/.npm
+**/.build-hash
+
+# Build output from packages and apps
+**/dist
+**/_vite-bundle
+**/.build
+**/.logs
+
+# Debugging output
+**/.meteor-vite
+
+# Secrets
+**/settings*.json
+**/.env*
+
+# Allow example secrets
+!**/settings.example.json
+!**/.env.example
+
+# Other files not necessary for building the app
+Dockerfile
+.dockerignore

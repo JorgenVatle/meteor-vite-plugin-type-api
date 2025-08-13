@@ -1,0 +1,56 @@
+{
+  "name": "meteor-app",
+  "private": true,
+  "scripts": {
+    "dev": "./bin/app.sh development",
+    "production": "./bin/app.sh production",
+
+    "start": "npm run dev start",
+    "launch": "npm run build && npm run production start",
+
+    "build": "npm run production build",
+    "postbuild": "npm run production finalize",
+
+    "test": "meteor test --once --driver-package meteortesting:mocha",
+    "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
+    "visualize": "meteor --production --extra-packages bundle-visualizer",
+
+    "prepare": "npm run prepare:settings && npm run prepare:env",
+    "prepare:settings": "test -f settings.json || cp settings.example.json settings.json",
+    "prepare:env": "test -f .env || cp .env.example .env"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.17.9",
+    "@tailwindcss/vite": "^4.0.4",
+    "@wcaservices/logger": "^1.6.2",
+    "meteor-node-stubs": "^1.2.1",
+    "meteor-vite": "^3.8.0",
+    "picocolors": "^1.1.1",
+    "tailwindcss": "^4.0.4",
+    "unplugin-vue-router": "^0.11.2",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0"
+  },
+  "meteor": {
+    "modern": true,
+    "mainModule": {
+      "client": "client/entry-meteor.js",
+      "server": "server/entry-meteor.js"
+    },
+    "testModule": "tests/entry-meteor.js"
+  },
+  "devDependencies": {
+    "@types/node": "^24.2.1",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "typescript": "^5.9.2",
+    "vite": "^6.3.5"
+  },
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
