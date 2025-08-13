@@ -6,7 +6,7 @@
 typed-router.d.ts
 
 # Exclude generated package manager files and modules
-/node_modules
+!/node_modules
 /.pnp
 .pnp.js
 
