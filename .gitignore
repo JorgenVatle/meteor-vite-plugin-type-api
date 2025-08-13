@@ -1,6 +1,7 @@
 # Temporary files
 /tmp
 /out-tsc
+dist
 
 # Exclude generated package manager files and modules
 node_modules
