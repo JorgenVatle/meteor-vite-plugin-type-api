@@ -1,0 +1,23 @@
+# Temporary files
+/tmp
+/out-tsc
+
+# Exclude generated package manager files and modules
+node_modules
+/.pnp
+.pnp.js
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Exclude IDE configs
+.vscode/*
+.idea/compiler.xml
+
+# Secrets and environment files
+.env
+
+# Exclude example secrets
+!.env.example
