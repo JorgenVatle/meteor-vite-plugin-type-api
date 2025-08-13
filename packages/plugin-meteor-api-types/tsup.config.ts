@@ -5,4 +5,5 @@ export default defineConfig({
     format: ['esm', 'cjs'],
     platform: 'node',
     skipNodeModulesBundle: true,
+    dts: true,
 })
