@@ -1,0 +1,1 @@
+export class ApiTypeError extends Error {}

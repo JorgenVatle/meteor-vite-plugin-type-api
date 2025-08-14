@@ -1,4 +1,5 @@
 import * as v from 'valibot';
+import { ApiNotCompiled } from '../lib/Errors/ApiNotCompiled';
 
 export function defineMethod<
     TName extends string,
@@ -20,6 +21,8 @@ export function defineMethod<
                 }
             }
         });
+    } else {
+        throw new ApiNotCompiled(`Client Meteor API method has not been compiled yet! Make sure that the plugin is included in your Vite config and its named with a .methods.ts suffix or nested under a methods/ directory.`);
     }
     
     console.debug(`${label} Defined`);
