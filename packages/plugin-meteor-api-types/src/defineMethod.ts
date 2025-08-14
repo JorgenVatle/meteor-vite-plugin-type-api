@@ -6,25 +6,28 @@ export function defineMethod<
     TSchemaInput,
     TSchemaTOutput,
 >(name: TName, definition: MethodDeclaration<TSchemaInput, TSchemaTOutput, TResult>) {
+    const label = __IS_SERVER__ ? `[Server Method: ${name}]` : `[Client Method: ${name}]`;
     if (__IS_SERVER__) {
-        console.debug(`[Server] Defined method: ${name}`);
         Meteor.methods({
             [name]: (params: TSchemaInput) => {
                 const schemaOutput = v.parse(definition.schema, params);
                 return definition.method(schemaOutput);
             }
         });
-    } else {
-        console.debug('[Client] Defined method')
     }
+    
+    console.debug(`${label} Defined`);
     
     return ((params: TSchemaInput): Promise<TResult> => {
         return new Promise<TResult>((resolve, reject) => {
+            console.debug(`${label} Calling with params: `, params);
             Meteor.call(name, params, (error: unknown, response: TResult) => {
                 if (error) {
+                    console.error(`${label} Error: `, error);
                     return reject(error);
                 }
                 resolve(response);
+                console.debug(`${label} Response: `, response);
             });
         })
     });
