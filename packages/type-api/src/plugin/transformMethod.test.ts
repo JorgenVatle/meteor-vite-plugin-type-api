@@ -4,7 +4,7 @@ import { transformMethod } from './transformMethod';
 
 const MOCK_MODULE = {
     // language="javascript"
-    namedImport: `
+    'named import': `
         // <editor-fold desc="Inline template">
         import { defineMethod } from '@meteor-vite/type-api';
         
@@ -25,7 +25,7 @@ const MOCK_MODULE = {
     `,
     
     // language="javascript"
-    wildcardImport: `
+    'wildcard import': `
         // <editor-fold desc="Inline template">
         import * as TypeApi from '@meteor-vite/type-api';
         
@@ -46,7 +46,7 @@ const MOCK_MODULE = {
     `,
     
     // language="javascript"
-    defaultImport: `
+    'default import': `
         // <editor-fold desc="Inline template">
         import TypeApi from '@meteor-vite/type-api';
         
@@ -69,8 +69,8 @@ const MOCK_MODULE = {
 
 describe.each(
     Object.entries(MOCK_MODULE)
-)('Usage: %s', (name, code) => {
-    const { AST } = transformMethod(MOCK_MODULE.namedImport);
+)('Using %s', (name, code) => {
+    const { AST } = transformMethod(code);
     
     it('Has an AST', () => {
         console.log(inspect(AST, { depth: 4, colors: true }));
