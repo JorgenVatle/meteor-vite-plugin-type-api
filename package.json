@@ -4,7 +4,7 @@
   "description": "",
   "license": "ISC",
   "author": "Jørgen Vatle <Jorgen@WcAServices.net> (https://github.com/JorgenVatle)",
-  "type": "commonjs",
+  "type": "module",
   "main": "index.js",
   "directories": {
     "example": "example"
