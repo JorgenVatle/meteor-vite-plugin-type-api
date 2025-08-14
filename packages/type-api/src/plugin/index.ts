@@ -14,7 +14,6 @@ const PLUGIN_DEFAULTS = {
 } satisfies MergedPluginConfiguration;
 
 function virtualModuleId(type: 'methods' | 'publications', name: string) {
-    console.debug(`Virtualized ${type} module: ${name}`)
     return `virtual:@meteor-vite/typed-api/${type}/${name}`
 }
 
@@ -23,14 +22,21 @@ export default function meteorApiTypePlugin(userConfig: PluginConfiguration): Pl
     
     return [{
         name: '@meteor-vite/typed-api: methods',
-        resolveId(id) {
-            const { dir, ext, base } = Path.parse(id);
-            if (config.fileExtension.methods === `.${ext}`) {
-                return virtualModuleId('methods', base);
+        transform(code, id) {
+            const { dir, base } = Path.parse(id);
+            let moduleId: string | undefined = undefined;
+            if (base.endsWith(config.fileExtension.methods)) {
+                moduleId = virtualModuleId('methods', base);
             }
             if (dir.endsWith(config.dirname.methods)) {
-                return virtualModuleId('methods', Path.basename(dir));
+                moduleId = virtualModuleId('methods', Path.basename(dir));
             }
+            if (!moduleId) {
+                return;
+            }
+            if (id.includes('methods')) {
+            }
+            console.debug('[Resolved]', { id, moduleId, dir, base, ast: this.parse(code) });
         }
     }];
 }
