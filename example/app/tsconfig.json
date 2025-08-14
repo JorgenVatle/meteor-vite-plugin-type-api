@@ -46,4 +46,11 @@
     "moduleDetection": "force",
     "skipLibCheck": true,
   },
+  "include": [
+    "./client",
+    "./server",
+    "./imports",
+    "vite.config.mts",
+    "env.d.ts",
+  ],
 }
