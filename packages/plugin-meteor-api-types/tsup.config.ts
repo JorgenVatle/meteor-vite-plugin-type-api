@@ -12,8 +12,8 @@ function buildConfig(options: BuildConfigOptions): Options {
     } satisfies Options;
     
     const overrides = {
-        name: options.name || options.platform.toUpperCase(),
-        outDir: `dist/${options.platform}`,
+        name: options.name,
+        outDir: `dist/${options.name}`,
         define: {
             __IS_SERVER__: JSON.stringify(options.platform === 'node'),
         },
@@ -44,6 +44,7 @@ export default defineConfig([
 ])
 
 interface BuildConfigBaseOptions {
+    name: string;
     platform: Extract<Options['platform'], string>;
     entry: Exclude<Options['entry'], undefined>
 }
