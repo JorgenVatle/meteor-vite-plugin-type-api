@@ -1,0 +1,58 @@
+export const MOCK_MODULE_METHODS = {
+    // language="javascript"
+    'named import': `
+        import { defineMethod } from '@meteor-vite/type-api';
+        
+        export const createLink = defineMethod('links.create', {
+            handler: () => {
+                return {
+                    myLink: { href: 'http://example.com' }
+                }
+            }
+        });
+        
+        export const updateLink = defineMethod('links.update', {
+            handler: (params) => {
+                return 'this should be omitted from client script';
+            }
+        })
+    `,
+    
+    // language="javascript"
+    'wildcard import': `
+        import * as TypeApi from '@meteor-vite/type-api';
+        
+        export const createLink = TypeApi.defineMethod('links.create', {
+            handler: () => {
+                return {
+                    myLink: { href: 'http://example.com' }
+                }
+            }
+        });
+        
+        export const updateLink = TypeApi.defineMethod('links.update', {
+            handler: (params) => {
+                return 'this should be omitted from client script';
+            }
+        })
+    `,
+    
+    // language="javascript"
+    'default import': `
+        import TypeApi from '@meteor-vite/type-api';
+        
+        export const createLink = TypeApi.defineMethod('links.create', {
+            handler: () => {
+                return {
+                    myLink: { href: 'http://example.com' }
+                }
+            }
+        });
+        
+        export const updateLink = TypeApi.defineMethod('links.update', {
+            handler: (params) => {
+                return 'this should be omitted from client script';
+            }
+        })
+    `,
+}
