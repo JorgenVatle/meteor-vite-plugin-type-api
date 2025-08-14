@@ -12,7 +12,7 @@ function buildConfig(options: BuildConfigOptions): Options {
     } satisfies Options;
     
     const overrides = {
-        name: [options.platform.toUpperCase(), options.name].filter(Boolean).join(':'),
+        name: options.name || options.platform.toUpperCase(),
         outDir: `dist/${options.platform}`,
         define: {
             __IS_SERVER__: JSON.stringify(options.platform === 'node'),
@@ -31,10 +31,12 @@ function buildConfig(options: BuildConfigOptions): Options {
 
 export default defineConfig([
     buildConfig({
+        name: 'server',
         platform: 'node',
         entry: ['src/server/index.ts'],
     }),
     buildConfig({
+        name: 'client',
         platform: 'browser',
         treeshake: 'smallest',
         entry: ['src/client/index.ts'],
