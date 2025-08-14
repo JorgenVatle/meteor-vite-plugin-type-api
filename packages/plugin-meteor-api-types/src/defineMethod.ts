@@ -7,12 +7,15 @@ export function defineMethod<
     TSchemaTOutput,
 >(name: TName, definition: MethodDeclaration<TSchemaInput, TSchemaTOutput, TResult>) {
     if (__IS_SERVER__) {
+        console.debug(`[Server] Defined method: ${name}`);
         Meteor.methods({
             [name]: (params: TSchemaInput) => {
                 const schemaOutput = v.parse(definition.schema, params);
                 return definition.method(schemaOutput);
             }
         });
+    } else {
+        console.debug('[Client] Defined method')
     }
     
     return ((params: TSchemaInput): Promise<TResult> => {
