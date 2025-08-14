@@ -1,4 +1,4 @@
-/// <reference types="meteor/globals">
+/// <reference types="meteor">
 import type { GenericSchema } from 'valibot';
 
 export function defineMethod<
