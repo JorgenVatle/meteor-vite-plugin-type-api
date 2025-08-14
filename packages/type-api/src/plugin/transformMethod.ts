@@ -7,7 +7,8 @@ export function transformMethod(code: string) {
     const parser = new ModuleParser(code);
     const notableNodes = {
         typeApiImport: parser.getImport('@meteor-vite/type-api'),
-        calls: parser.getCallExpression(),
+        calls: parser.callExpressions,
+        defineMethodCall: parser.getCallExpression({ type: 'Identifier', name: 'defineMethod' }),
     }
     
     return {
@@ -18,9 +19,17 @@ export function transformMethod(code: string) {
 
 class ModuleParser {
     public readonly AST: ProgramNode;
+    public readonly callExpressions: ESTree.CallExpression[] = [];
     
     constructor(code: string) {
         this.AST = parseAst(code);
+        walk(this.AST, {
+            enter: (node) => {
+                if (node.type === 'CallExpression') {
+                    this.callExpressions.push(node);
+                }
+            }
+        })
     }
     
     public getImport(source: string) {
@@ -35,18 +44,24 @@ class ModuleParser {
         }
     }
     
-    public getCallExpression() {
-        const expressions: ESTree.CallExpression[] = [];
-        
-        walk(this.AST, {
-            enter(node) {
-                if (node.type !== 'CallExpression') {
-                    return;
-                }
-                expressions.push(node);
+    public getCallExpression(callee: ESTree.Identifier | Pick<ESTree.MemberExpression, 'type' | 'object' | 'property'>) {
+        return this.callExpressions.filter((node) => {
+            if (node.callee.type !== callee.type) {
+                return;
             }
-        });
-        
-        return expressions;
+            if (callee.type === 'Identifier') {
+                return true;
+            }
+            if (callee.type !== 'MemberExpression') {
+                return;
+            }
+            if (node.callee.type !== 'MemberExpression') {
+                return;
+            }
+            if (node.callee.object.type !== callee.object.type) {
+                return;
+            }
+            return true;
+        })
     }
 }
