@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.17.9",
+    "@meteor-vite/plugin-meteor-api-types": "file:../../packages/plugin-meteor-api-types",
     "@tailwindcss/vite": "^4.0.4",
     "@wcaservices/logger": "^1.6.2",
     "meteor-node-stubs": "^1.2.1",
