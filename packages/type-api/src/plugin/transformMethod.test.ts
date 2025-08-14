@@ -70,12 +70,17 @@ const MOCK_MODULE = {
 describe.each(
     Object.entries(MOCK_MODULE)
 )('Using %s', (name, code) => {
-    const { AST } = transformMethod(code);
+    const { AST, notableNodes } = transformMethod(code);
     
     it('Has an AST', () => {
         console.log(inspect(AST, { depth: 6, colors: true }));
         
         expect(AST).toBeTruthy();
+    });
+    
+    it('Located an import for @meteor-vite/type-api', () => {
+        console.log(inspect(notableNodes.typeApiImport, { depth: 6, colors: true }));
+        expect(notableNodes.typeApiImport).toBeTruthy();
     })
 });
 
