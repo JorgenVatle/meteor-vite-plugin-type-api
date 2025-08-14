@@ -67,15 +67,16 @@ const MOCK_MODULE = {
     `,
 }
 
-describe('Named type-api import', () => {
+describe.each(
+    Object.entries(MOCK_MODULE)
+)('Usage: %s', (name, code) => {
+    const { AST } = transformMethod(MOCK_MODULE.namedImport);
     
-    it('Can parse ASTs', () => {
-        const { AST } = transformMethod(MOCK_MODULE.namedImport);
-        
+    it('Has an AST', () => {
         console.log(inspect(AST, { depth: 4, colors: true }));
         
         expect(AST).toBeTruthy();
     })
-})
+});
 
 
