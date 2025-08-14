@@ -29,6 +29,7 @@
   "devDependencies": {
     "@types/meteor": "^2.9.9",
     "tsup": "^8.5.0",
+    "typescript": "^5.9.2",
     "vite": "^6.3.5"
   },
   "peerDependencies": {
