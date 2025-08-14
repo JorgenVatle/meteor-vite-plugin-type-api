@@ -5,6 +5,9 @@
   "license": "ISC",
   "author": "Jørgen Vatle <Jorgen@WcAServices.net> (https://github.com/JorgenVatle)",
   "type": "module",
+  "files": [
+    "dist"
+  ],
   "exports": {
     ".": {
       "browser": {
