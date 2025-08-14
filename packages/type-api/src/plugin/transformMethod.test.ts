@@ -70,7 +70,7 @@ const MOCK_MODULE = {
 describe.each(
     Object.entries(MOCK_MODULE)
 )('Using %s', (name, code) => {
-    const { AST, defineMethodCalls, typeApiImport, methodNames } = transformMethod(code);
+    const { AST, methodCalls, typeApiImport, methodNames } = transformMethod(code);
     
     it('Has an AST', () => {
         console.log(inspect(AST, { depth: 6, colors: true }));
@@ -84,8 +84,8 @@ describe.each(
     });
     
     it('Parses call expressions', () => {
-        console.log(inspect(defineMethodCalls, { depth: 6, colors: true }));
-        expect(defineMethodCalls.length).toBeGreaterThan(0);
+        console.log(inspect(methodCalls, { depth: 6, colors: true }));
+        expect(methodCalls.length).toBeGreaterThan(0);
     });
     
     it('Parses method names', () => {

@@ -4,12 +4,12 @@ export function transformMethod(code: string) {
     const parser = new ModuleParser(code);
     
     const typeApiImport = parser.getImport('@meteor-vite/type-api');
-    const defineMethodCalls = parser.getImportedMethodCalls(typeApiImport, {
+    const methodCalls = parser.getImportedMethodCalls(typeApiImport, {
         type: 'Identifier',
         name: 'defineMethod',
     });
     
-    const methodNames = defineMethodCalls.map((node) => {
+    const methodNames = methodCalls.map((node) => {
         const name = node.arguments[0];
         if (!name) {
             return;
@@ -23,7 +23,7 @@ export function transformMethod(code: string) {
     return {
         AST: parser.AST,
         typeApiImport,
-        defineMethodCalls,
+        methodCalls,
         methodNames,
     };
 }
