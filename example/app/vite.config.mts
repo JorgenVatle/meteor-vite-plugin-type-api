@@ -1,4 +1,4 @@
-import { meteorApiTypesPlugin } from '@meteor-vite/plugin-meteor-api-types';
+import { meteorApiTypesPlugin } from '@meteor-vite/type-api';
 import TailwindCSS from '@tailwindcss/vite';
 import Vue from '@vitejs/plugin-vue';
 import { meteor } from 'meteor-vite/plugin';
