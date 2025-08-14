@@ -1,5 +1,5 @@
 /// <reference types="meteor">
-import type { GenericSchema } from 'valibot';
+import * as v from 'valibot';
 
 export function defineMethod<
     TName extends string,
@@ -8,6 +8,15 @@ export function defineMethod<
     TSchemaTOutput,
     TDefinition extends MethodDeclaration<TSchemaInput, TSchemaTOutput, TResult> = MethodDeclaration<TSchemaInput, TSchemaTOutput, TResult>
 >(name: TName, definition: TDefinition): DefinedMethod<TDefinition> {
+    if (Meteor.isServer) {
+        Meteor.methods({
+            [name]: (params: TSchemaInput) => {
+                const schemaOutput = v.parse(definition.schema, params);
+                return definition.method(schemaOutput);
+            }
+        });
+    }
+    
     return ((params: TSchemaInput) => {
         return new Promise((resolve, reject) => {
             Meteor.call(name, params, (error: unknown, response: TResult) => {
@@ -25,7 +34,7 @@ interface MethodDeclaration<
     TSchemaTOutput = unknown,
     TResult = unknown
 > {
-    schema: GenericSchema<TSchemaInput, TSchemaTOutput>;
+    schema: v.GenericSchema<TSchemaInput, TSchemaTOutput>;
     method: (params: TSchemaTOutput) => TResult
 }
 
