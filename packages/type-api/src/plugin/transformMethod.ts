@@ -25,6 +25,7 @@ export function transformMethod(code: string) {
         typeApiImport,
         methodCalls,
         methodNames,
+        parser,
     };
 }
 

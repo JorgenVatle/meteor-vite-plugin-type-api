@@ -25,7 +25,8 @@ export class ModuleParser {
     }) {
         const importDeclaration = this.getImport(config.moduleId);
         const callee = this.getImportedCallee(importDeclaration, config.identifier);
-        return walk(this.AST, {
+        const AST = parseAst(this.code);
+        walk(AST, {
             enter(node) {
                 const expression = getCallExpression(node, callee);
                 if (!expression) {
@@ -33,7 +34,8 @@ export class ModuleParser {
                 }
                 this.replace(config.replacement);
             }
-        })
+        });
+        return AST;
     }
     
     public getImport(source: string) {
