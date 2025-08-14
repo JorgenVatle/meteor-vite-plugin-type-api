@@ -1,3 +1,4 @@
+import ESTree from 'estree';
 import { inspect } from 'node:util';
 import { describe, expect, it } from 'vitest';
 import { transformMethod } from './transformMethod';
@@ -96,19 +97,20 @@ describe.each(
     });
     
     it('Can replace imported method calls', () => {
+        const replacement: ESTree.Literal = {
+            type: 'Literal',
+            value: 'REPLACEMENT SUCCESSFUL',
+        }
         const result = parser.replaceImportedCallExpressions({
             moduleId: '@meteor-vite/type-api',
-            replacement: {
-                type: 'Literal',
-                value: 'REPLACEMENT SUCCESSFUL',
-            },
+            replacement,
             identifier: {
                 type: 'Identifier',
                 name: 'defineMethod',
             },
         })
         console.log(inspect(result, { depth: 6, colors: true }));
-        expect(result).toEqual('REPLACEMENT SUCCESSFUL');
+        expect(result).toEqual(expect.objectContaining(replacement));
     })
 });
 
