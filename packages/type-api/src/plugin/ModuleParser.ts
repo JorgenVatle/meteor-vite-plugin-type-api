@@ -1,3 +1,4 @@
+import { generate } from 'escodegen';
 import type ESTree from 'estree';
 import { walk } from 'estree-walker';
 import type { ProgramNode } from 'rollup';
@@ -7,8 +8,8 @@ export class ModuleParser {
     public readonly AST: ProgramNode;
     public readonly callExpressions: ESTree.CallExpression[] = [];
     
-    constructor(public readonly code: string) {
-        this.AST = parseAst(code);
+    constructor(protected readonly codeInput: string) {
+        this.AST = parseAst(codeInput);
         walk(this.AST, {
             enter: (node) => {
                 if (node.type === 'CallExpression') {
@@ -25,8 +26,7 @@ export class ModuleParser {
     }) {
         const importDeclaration = this.getImport(config.moduleId);
         const callee = this.getImportedCallee(importDeclaration, config.identifier);
-        const AST = parseAst(this.code);
-        walk(AST, {
+        walk(this.AST, {
             enter(node) {
                 const expression = getCallExpression(node, callee);
                 if (!expression) {
@@ -35,7 +35,11 @@ export class ModuleParser {
                 this.replace(config.replacement);
             }
         });
-        return AST;
+        return this.AST;
+    }
+    
+    public get code() {
+        return generate(this.AST);
     }
     
     public getImport(source: string) {
