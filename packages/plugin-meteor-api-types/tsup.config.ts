@@ -2,6 +2,7 @@ import { defineConfig, type Options } from 'tsup';
 
 function buildConfig(options: BuildConfigOptions): Options {
     const BASE_OPTIONS = {
+        name: options.platform.toUpperCase(),
         entry: ['./src/index.ts'],
         format: ['esm', 'cjs'],
         outDir: 'dist/node',
@@ -19,7 +20,7 @@ function buildConfig(options: BuildConfigOptions): Options {
 }
 
 type BuildConfigOptions = Omit<Options, 'platform'> & {
-    platform: Extract<Options['platform'], string>
+    platform: Extract<Options['platform'], string>;
 };
 
 export default defineConfig([
