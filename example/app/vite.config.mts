@@ -17,7 +17,7 @@ export default defineConfig({
         }),
         meteorApiTypesPlugin(),
         VueRouter({
-            routesFolder: ['ui/pages']
+            routesFolder: ['imports/ui/pages']
         }),
         TailwindCSS(),
         Vue(),
