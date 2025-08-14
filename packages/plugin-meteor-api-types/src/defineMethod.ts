@@ -5,8 +5,7 @@ export function defineMethod<
     TResult,
     TSchemaInput,
     TSchemaTOutput,
-    TDefinition extends MethodDeclaration<TSchemaInput, TSchemaTOutput, TResult> = MethodDeclaration<TSchemaInput, TSchemaTOutput, TResult>
->(name: TName, definition: TDefinition): DefinedMethod<TDefinition> {
+>(name: TName, definition: MethodDeclaration<TSchemaInput, TSchemaTOutput, TResult>) {
     if (import.meta.env.SSR) {
         Meteor.methods({
             [name]: (params: TSchemaInput) => {
@@ -25,7 +24,7 @@ export function defineMethod<
                 resolve(response);
             });
         })
-    }) as DefinedMethod<TDefinition>
+    });
 }
 
 interface MethodDeclaration<
