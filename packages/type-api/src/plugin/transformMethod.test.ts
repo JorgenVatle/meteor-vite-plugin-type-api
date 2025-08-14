@@ -110,7 +110,22 @@ describe.each(
             },
         })
         console.log(inspect(result, { depth: 6, colors: true }));
-        expect(result).toEqual(expect.objectContaining(replacement));
+        expect(result.body).toEqual(
+            expect.arrayContaining([
+                expect.objectContaining({
+                    type: 'ExportNamedDeclaration',
+                    declaration: expect.objectContaining({
+                        type: 'VariableDeclaration',
+                        declarations: [
+                            expect.objectContaining({
+                                type: 'VariableDeclarator',
+                                init: replacement,
+                            })
+                        ]
+                    })
+                } satisfies Partial<ESTree.Node>)
+            ])
+        );
     })
 });
 
