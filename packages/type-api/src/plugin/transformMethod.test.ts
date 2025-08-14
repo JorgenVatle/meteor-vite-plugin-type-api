@@ -1,4 +1,4 @@
-import ESTree from 'estree';
+import type ESTree from 'estree';
 import { inspect } from 'node:util';
 import { describe, expect, it } from 'vitest';
 import { transformMethod } from './transformMethod';
