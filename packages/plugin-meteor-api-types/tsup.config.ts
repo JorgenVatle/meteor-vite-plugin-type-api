@@ -6,4 +6,7 @@ export default defineConfig({
     platform: 'node',
     skipNodeModulesBundle: true,
     dts: true,
+    define: {
+        Meteor: 'Meteor',
+    }
 })
