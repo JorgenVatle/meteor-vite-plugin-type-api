@@ -126,6 +126,7 @@ describe.each(
                 } satisfies Partial<ESTree.Node>)
             ])
         );
+        expect(parser.code).toContain(replacement.value);
     })
 });
 
