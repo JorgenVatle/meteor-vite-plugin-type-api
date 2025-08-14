@@ -70,7 +70,7 @@ const MOCK_MODULE = {
 describe.each(
     Object.entries(MOCK_MODULE)
 )('Using %s', (name, code) => {
-    const { AST, methodCalls, typeApiImport, methodNames } = transformMethod(code);
+    const { AST, methodCalls, typeApiImport, methodNames, parser } = transformMethod(code);
     
     it('Has an AST', () => {
         console.log(inspect(AST, { depth: 6, colors: true }));
@@ -93,6 +93,22 @@ describe.each(
         expect(methodNames.length).toBeGreaterThan(0);
         expect(methodNames).toContain('links.create');
         expect(methodNames).toContain('links.update');
+    });
+    
+    it('Can replace imported method calls', () => {
+        const result = parser.replaceImportedCallExpressions({
+            moduleId: '@meteor-vite/type-api',
+            replacement: {
+                type: 'Literal',
+                value: 'REPLACEMENT SUCCESSFUL',
+            },
+            identifier: {
+                type: 'Identifier',
+                name: 'defineMethod',
+            },
+        })
+        console.log(inspect(result, { depth: 6, colors: true }));
+        expect(result).toEqual('REPLACEMENT SUCCESSFUL');
     })
 });
 
