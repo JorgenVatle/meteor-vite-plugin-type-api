@@ -10,8 +10,14 @@ export function defineMethod<
     if (__IS_SERVER__) {
         Meteor.methods({
             [name]: (params: TSchemaInput) => {
-                const schemaOutput = v.parse(definition.schema, params);
-                return definition.method(schemaOutput);
+                try {
+                    console.debug(`${label} Incoming request: `, params);
+                    const schemaOutput = v.parse(definition.schema, params);
+                    return definition.method(schemaOutput);
+                } catch (error) {
+                    console.debug(`${label} Error: `, error);
+                    throw error;
+                }
             }
         });
     }
