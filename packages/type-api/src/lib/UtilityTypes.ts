@@ -1,3 +1,3 @@
-export type DeepPartial<T> = { [P in keyof T]?: DeepPartial<T[P]> };
+export type PartialDeep<T> = { [P in keyof T]?: PartialDeep<T[P]> };
 
-export type DeepRequired<T> = { [P in keyof T]-?: DeepRequired<T[P]> };
+export type RequiredDeep<T> = { [P in keyof T]-?: RequiredDeep<T[P]> };
