@@ -19,7 +19,7 @@ function buildConfig(options: BuildConfigOptions): Options {
         },
     } satisfies Options;
     
-    const result = Object.assign({}, options, overrides, {
+    const result = Object.assign({}, BASE_OPTIONS, options, overrides, {
         define: Object.assign(BASE_OPTIONS.define, options.define, overrides.define),
     });
     
