@@ -15,7 +15,7 @@ export function defineMethod<
         });
     }
     
-    return ((params: TSchemaInput) => {
+    return ((params: TSchemaInput): Promise<TResult> => {
         return new Promise<TResult>((resolve, reject) => {
             Meteor.call(name, params, (error: unknown, response: TResult) => {
                 if (error) {
