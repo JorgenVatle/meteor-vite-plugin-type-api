@@ -8,8 +8,12 @@ export type ResourceHandle<
     run: (...params: TParams) => TResult;
 };
 
-function getLabel(handle: ResourceHandle) {
+export function getLabel(handle: ResourceHandle) {
     return `[${handle.context} ${handle.type}] ${handle.name}`;
+}
+
+export function getContext() {
+    return __IS_SERVER__ ? 'server' : 'client';
 }
 
 export function defineResourceHandle<
@@ -17,17 +21,16 @@ export function defineResourceHandle<
     TResult = unknown
 >(handle: ResourceHandle<TParams, TResult>) {
     const label = getLabel(handle);
-    return ((...params: TParams): Promise<TResult> => {
-        return new Promise<TResult>((resolve, reject) => {
+    console.debug(`${label} Defined resouce handle`);
+    return (async (...params: TParams): Promise<TResult> => {
+        try {
             console.debug(`${label} Calling with params: `, params);
-            Meteor.call(handle.name, params, (error: unknown, response: TResult) => {
-                if (error) {
-                    console.error(`${label} Error: `, error);
-                    return reject(error);
-                }
-                resolve(response);
-                console.debug(`${label} Response: `, response);
-            });
-        })
+            const result = await handle.run(...params);
+            console.debug(`${label} Response: `, result);
+            return result;
+        } catch (error) {
+            console.error(`${label} Error: `, error);
+            throw error;
+        }
     });
 }
