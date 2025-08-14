@@ -10,11 +10,11 @@ export type ResourceHandle<
     context: 'client' | 'server';
     schema: v.GenericSchema<TOutputParams, TOutputParams>;
     name: string;
-    call: (...params: TInputParams) => TResult;
-    handle: (...params: TOutputParams) => TResult;
+    run: (...params: TInputParams) => TResult;
+    register: (handle: (...params: any) => TResult) => void;
 };
 
-export function getLabel(handle: ResourceHandle): string {
+export function getLabel(handle: Pick<ResourceHandle, 'context' | 'name' | 'type'>): string {
     return `[${handle.context} ${handle.type}] ${handle.name}`;
 }
 
@@ -33,46 +33,31 @@ export function defineResourceHandle<
         throw new ApiNotCompiled(`Client Meteor API method has not been compiled yet! Make sure that the plugin is included in your Vite config and its named with a .methods.ts suffix or nested under a methods/ directory.`);
     }
     
+    console.debug(`${label} Defined resource handle`);
+    
     function wrappedHandle(this: any, params: TOutputParams): any {
         try {
             console.debug(`${label} Incoming request: `, params);
             const schemaOutput = v.parse(handle.schema, params);
-            return handle.handle.apply(this, schemaOutput);
+            return handle.run.apply(this, [schemaOutput]);
         } catch (error) {
             console.debug(`${label} Error: `, error);
             throw error;
         }
     }
     
-    if (handle.type === 'method') {
-        Meteor.methods({
-            [handle.name]: wrappedHandle,
+    function wrappedCall(this: any, ...params: TOutputParams): any {
+        console.debug(`${label} Calling with params: `, params);
+        const result = handle.run.apply(this, params);
+        Promise.resolve(result).catch((error) => {
+            console.error(`${label} Error: `, error);
+        }).then(() => {
+            console.debug(`${label} Response: `, result);
         });
-    } else if (handle.type === 'publication') {
-        Meteor.publish(handle.name, wrappedHandle);
+        return result;
     }
     
-    console.debug(`${label} Defined resource handle`);
-    return (async (...params: TInputParams): Promise<TResult> => {
-        try {
-            console.debug(`${label} Calling with params: `, params);
-            if (handle.type === 'method') {
-                const result = await new Promise<TResult>((resolve, reject) => {
-                    Meteor.call(handle.name, ...params, (error: unknown, response: TResult) => {
-                        if (error) {
-                            return reject(error);
-                        }
-                        resolve(response);
-                    });
-                })
-                console.debug(`${label} Response: `, result);
-                return result;
-            }
-            
-            return Meteor.subscribe(handle.name, ...params);
-        } catch (error) {
-            console.error(`${label} Error: `, error);
-            throw error;
-        }
-    });
+    handle.register(wrappedHandle);
+    
+    return wrappedCall;
 }
