@@ -35,6 +35,7 @@
     "prepare": "npm run build || echo 'Failed to prepare build output'"
   },
   "devDependencies": {
+    "@types/escodegen": "^0.0.10",
     "@types/meteor": "^2.9.9",
     "@types/node": "^24.2.1",
     "tsup": "^8.5.0",
@@ -46,6 +47,8 @@
     "valibot": "^1.1.0"
   },
   "dependencies": {
+    "escodegen": "^2.1.0",
+    "estree-toolkit": "^1.7.13",
     "estree-walker": "^3.0.3"
   }
 }
