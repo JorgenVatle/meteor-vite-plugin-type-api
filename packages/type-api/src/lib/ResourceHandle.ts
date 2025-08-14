@@ -1,3 +1,5 @@
+import { ApiNotCompiled } from './Errors/ApiNotCompiled';
+
 export type ResourceHandle<
     TParams extends any[] = [],
     TResult = unknown
@@ -6,6 +8,7 @@ export type ResourceHandle<
     context: 'client' | 'server';
     name: string;
     run: (...params: TParams) => TResult;
+    register: (label: string) => void;
 };
 
 export function getLabel(handle: ResourceHandle) {
@@ -21,6 +24,13 @@ export function defineResourceHandle<
     TResult = unknown
 >(handle: ResourceHandle<TParams, TResult>) {
     const label = getLabel(handle);
+    
+    if (__IS_SERVER__) {
+        handle.register(label);
+    } else {
+        throw new ApiNotCompiled(`Client Meteor API method has not been compiled yet! Make sure that the plugin is included in your Vite config and its named with a .methods.ts suffix or nested under a methods/ directory.`);
+    }
+    
     console.debug(`${label} Defined resource handle`);
     return (async (...params: TParams): Promise<TResult> => {
         try {
