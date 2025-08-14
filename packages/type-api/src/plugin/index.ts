@@ -1,6 +1,6 @@
 import { type Plugin } from 'vite';
 
-export function meteorApiTypesPlugin(config?: PluginConfiguration): Plugin {
+export default function meteorApiTypePlugin(config?: PluginConfiguration): Plugin {
     return {
         name: 'meteor-vite: meteor-api-types',
     }

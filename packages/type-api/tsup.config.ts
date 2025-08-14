@@ -40,6 +40,11 @@ export default defineConfig([
         treeshake: 'smallest',
         entry: ['./src/client/index.ts'],
     }),
+    buildConfig({
+        name: 'plugin',
+        platform: 'node',
+        entry: ['./src/plugin/index.ts'],
+    })
 ])
 
 interface BuildConfigBaseOptions {
