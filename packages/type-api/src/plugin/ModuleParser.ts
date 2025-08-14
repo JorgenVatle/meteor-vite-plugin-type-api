@@ -33,9 +33,12 @@ export class ModuleParser {
                     return;
                 }
                 const replacement = config.replace(expression);
-                console.log({
+                console.dir({
                     expression,
                     replacement,
+                }, {
+                    colors: true,
+                    depth: 6,
                 })
                 this.replace(replacement);
             }
