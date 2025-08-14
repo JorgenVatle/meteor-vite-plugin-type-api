@@ -22,6 +22,7 @@ export default defineConfig([
         platform: 'browser',
         skipNodeModulesBundle: true,
         dts: true,
+        treeshake: 'smallest',
         define: {
             Meteor: 'Meteor',
             __IS_SERVER__: 'false',
