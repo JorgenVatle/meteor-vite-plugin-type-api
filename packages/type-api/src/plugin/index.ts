@@ -1,4 +1,5 @@
-import { mergeConfig, type Plugin } from 'vite';
+import * as Path from 'node:path';
+import { mergeConfig, type PluginOption } from 'vite';
 import type { RequiredDeep } from '../lib/UtilityTypes';
 
 const PLUGIN_DEFAULTS = {
@@ -12,11 +13,26 @@ const PLUGIN_DEFAULTS = {
     },
 } satisfies MergedPluginConfiguration;
 
-export default function meteorApiTypePlugin(userConfig: PluginConfiguration): Plugin {
-    const config = mergeConfig(PLUGIN_DEFAULTS, userConfig);
-    return {
-        name: 'meteor-vite: meteor-api-types',
-    }
+function virtualModuleId(type: 'methods' | 'publications', name: string) {
+    console.debug(`Virtualized ${type} module: ${name}`)
+    return `virtual:@meteor-vite/typed-api/${type}/${name}`
+}
+
+export default function meteorApiTypePlugin(userConfig: PluginConfiguration): PluginOption {
+    const config = mergeConfig(PLUGIN_DEFAULTS, userConfig) as MergedPluginConfiguration;
+    
+    return [{
+        name: '@meteor-vite/typed-api: methods',
+        resolveId(id) {
+            const { dir, ext, base } = Path.parse(id);
+            if (config.fileExtension.methods === `.${ext}`) {
+                return virtualModuleId('methods', base);
+            }
+            if (dir.endsWith(config.dirname.methods)) {
+                return virtualModuleId('methods', Path.basename(dir));
+            }
+        }
+    }];
 }
 
 export interface PluginConfiguration {
