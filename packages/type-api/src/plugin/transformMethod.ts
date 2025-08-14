@@ -5,13 +5,55 @@ import { parseAst } from 'rollup/parseAst';
 
 export function transformMethod(code: string) {
     const parser = new ModuleParser(code);
-    const notableNodes = {
-        typeApiImport: parser.getImport('@meteor-vite/type-api'),
-        calls: parser.callExpressions,
-        defineMethodCall: parser.getCallExpression({ type: 'Identifier', name: 'defineMethod' }),
+    
+    const typeApiImport = parser.getImport('@meteor-vite/type-api');
+    let expectedExpressionCallee: ESTree.Identifier | Pick<ESTree.MemberExpression, 'property' | 'type' | 'object'> | null = null;
+    
+    for (const specifier of typeApiImport.specifiers) {
+        const importSpecifier = getImportSpecifier(specifier, {
+            imported: {
+                type: 'Identifier',
+                name: 'defineMethod',
+            },
+        });
+        
+        if (importSpecifier) {
+            expectedExpressionCallee = importSpecifier.local;
+            break;
+        }
+        
+        if (specifier.type === 'ImportDefaultSpecifier') {
+            expectedExpressionCallee = {
+                type: 'MemberExpression',
+                object: specifier.local,
+                property: {
+                    type: 'Identifier',
+                    name: 'defineMethod',
+                }
+            };
+            break;
+        }
+        
+        if (specifier.type === 'ImportNamespaceSpecifier') {
+            expectedExpressionCallee = {
+                type: 'MemberExpression',
+                object: specifier.local,
+                property: {
+                    type: 'Identifier',
+                    name: 'defineMethod',
+                }
+            };
+            break;
+        }
     }
     
-    const methodNames = notableNodes.calls.map((node) => {
+    if (!expectedExpressionCallee) {
+        throw new Error('Could not find expected expression callee');
+    }
+    
+    const defineMethodCalls = parser.getCallExpression(expectedExpressionCallee);
+    
+    const methodNames = defineMethodCalls.map((node) => {
         const name = node.arguments[0];
         if (!name) {
             return;
@@ -24,7 +66,8 @@ export function transformMethod(code: string) {
     
     return {
         AST: parser.AST,
-        notableNodes,
+        typeApiImport,
+        defineMethodCalls,
         methodNames,
     };
 }
@@ -54,6 +97,7 @@ class ModuleParser {
             }
             return node;
         }
+        throw new Error(`Could not find import for ${source}`);
     }
     
     public getCallExpression(callee: ESTree.Identifier | Pick<ESTree.MemberExpression, 'type' | 'object' | 'property'>) {
@@ -76,4 +120,22 @@ class ModuleParser {
             return true;
         })
     }
+}
+
+function getImportSpecifier(node: ESTree.Node, specifier: {
+    imported: ESTree.Identifier;
+}) {
+    if (node.type !== 'ImportSpecifier') {
+        return;
+    }
+    if (node.imported.type !== 'Identifier') {
+        return;
+    }
+    if (node.imported.name !== specifier.imported.name) {
+        return;
+    }
+    if (node.local.type !== 'Identifier') {
+        return;
+    }
+    return node;
 }
