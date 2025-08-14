@@ -33,7 +33,7 @@ export default defineConfig([
     buildConfig({
         name: 'index',
         platform: 'node',
-        entry: ['src/node/index.ts'],
+        entry: ['src/server/index.ts'],
     }),
     buildConfig({
         name: 'index',
