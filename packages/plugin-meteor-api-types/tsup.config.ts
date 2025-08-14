@@ -33,13 +33,13 @@ export default defineConfig([
     buildConfig({
         name: 'index',
         platform: 'node',
-        entry: ['src/index.ts'],
+        entry: ['src/node/index.ts'],
     }),
     buildConfig({
         name: 'index',
         platform: 'browser',
         treeshake: 'smallest',
-        entry: ['src/index.ts'],
+        entry: ['src/client/index.ts'],
     }),
 ])
 
