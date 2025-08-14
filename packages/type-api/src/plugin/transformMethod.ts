@@ -1,3 +1,5 @@
+import type ESTree from 'estree';
+import { walk } from 'estree-walker';
 import type { ProgramNode } from 'rollup';
 import { parseAst } from 'rollup/parseAst';
 
@@ -30,5 +32,20 @@ class ModuleParser {
             }
             return node;
         }
+    }
+    
+    public getCallExpression() {
+        const expressions: ESTree.CallExpression[] = [];
+        
+        walk(this.AST, {
+            enter(node) {
+                if (node.type !== 'CallExpression') {
+                    return;
+                }
+                expressions.push(node);
+            }
+        });
+        
+        return expressions;
     }
 }
