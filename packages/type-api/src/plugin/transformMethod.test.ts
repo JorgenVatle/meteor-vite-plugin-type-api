@@ -103,7 +103,7 @@ describe.each(
         }
         const result = parser.replaceImportedCallExpressions({
             moduleId: '@meteor-vite/type-api',
-            replacement,
+            replace: () => replacement,
             identifier: {
                 type: 'Identifier',
                 name: 'defineMethod',

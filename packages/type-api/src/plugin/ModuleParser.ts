@@ -22,7 +22,7 @@ export class ModuleParser {
     public replaceImportedCallExpressions(config: {
         moduleId: '@meteor-vite/type-api',
         identifier: ESTree.Identifier,
-        replacement: ESTree.Expression
+        replace: (original: ESTree.Expression) => ESTree.Expression
     }) {
         const importDeclaration = this.getImport(config.moduleId);
         const callee = this.getImportedCallee(importDeclaration, config.identifier);
@@ -32,7 +32,12 @@ export class ModuleParser {
                 if (!expression) {
                     return;
                 }
-                this.replace(config.replacement);
+                const replacement = config.replace(expression);
+                console.log({
+                    expression,
+                    replacement,
+                })
+                this.replace(replacement);
             }
         });
         return this.AST;
