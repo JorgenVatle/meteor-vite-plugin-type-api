@@ -19,26 +19,34 @@ function buildConfig(options: BuildConfigOptions): Options {
         },
     } satisfies Options;
     
-    return Object.assign({}, options, overrides, {
+    const result = Object.assign({}, options, overrides, {
         define: Object.assign(BASE_OPTIONS.define, options.define, overrides.define),
     });
+    
+    console.debug(`Building ${options.platform}:${options.name}...`, result);
+    
+    return result;
+    
 }
 
 export default defineConfig([
     buildConfig({
         name: 'index',
         platform: 'node',
+        entry: ['src/index.ts'],
     }),
     buildConfig({
         name: 'index',
         platform: 'browser',
         treeshake: 'smallest',
+        entry: ['src/index.ts'],
     }),
 ])
 
 interface BuildConfigBaseOptions {
     name: string;
     platform: Extract<Options['platform'], string>;
+    entry: Exclude<Options['entry'], undefined>
 }
 
 interface BuildConfigOptions extends BuildConfigBaseOptions, Omit<Options, keyof BuildConfigBaseOptions> {}
