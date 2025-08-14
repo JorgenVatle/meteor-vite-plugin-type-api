@@ -1,3 +1,4 @@
+import { inspect } from 'node:util';
 import { expect, it } from 'vitest';
 import { transformMethod } from './transformMethod';
 
@@ -22,6 +23,8 @@ export const updateLink = defineMethod('links.update', {
 
 it('Can parse ASTs', () => {
     const { AST } = transformMethod(code);
+    
+    console.log(inspect(AST, { depth: 4, colors: true }));
     
     expect(AST).toBeTruthy();
 })
