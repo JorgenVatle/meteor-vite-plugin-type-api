@@ -14,10 +14,25 @@ export function transformMethod(code: string) {
         if (!name) {
             return;
         }
-        if (name.type !== 'Literal') {
+        if (name.type !== 'ObjectExpression') {
             return;
         }
-        return name.value;
+        for (const property of name.properties) {
+            if (property.type !== 'Property') {
+                continue;
+            }
+            if (property.key.type !== 'Identifier') {
+                continue;
+            }
+            if (property.key.name !== 'name') {
+                continue;
+            }
+            if (property.value.type !== 'Literal') {
+                continue;
+            }
+            
+            return property.value.value;
+        }
     })
     
     return {
