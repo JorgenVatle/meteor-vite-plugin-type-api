@@ -7,51 +7,10 @@ export function transformMethod(code: string) {
     const parser = new ModuleParser(code);
     
     const typeApiImport = parser.getImport('@meteor-vite/type-api');
-    let expectedExpressionCallee: ESTree.Identifier | Pick<ESTree.MemberExpression, 'property' | 'type' | 'object'> | null = null;
-    
-    for (const specifier of typeApiImport.specifiers) {
-        const importSpecifier = getImportSpecifier(specifier, {
-            imported: {
-                type: 'Identifier',
-                name: 'defineMethod',
-            },
-        });
-        
-        if (importSpecifier) {
-            expectedExpressionCallee = importSpecifier.local;
-            break;
-        }
-        
-        if (specifier.type === 'ImportDefaultSpecifier') {
-            expectedExpressionCallee = {
-                type: 'MemberExpression',
-                object: specifier.local,
-                property: {
-                    type: 'Identifier',
-                    name: 'defineMethod',
-                }
-            };
-            break;
-        }
-        
-        if (specifier.type === 'ImportNamespaceSpecifier') {
-            expectedExpressionCallee = {
-                type: 'MemberExpression',
-                object: specifier.local,
-                property: {
-                    type: 'Identifier',
-                    name: 'defineMethod',
-                }
-            };
-            break;
-        }
-    }
-    
-    if (!expectedExpressionCallee) {
-        throw new Error('Could not find expected expression callee');
-    }
-    
-    const defineMethodCalls = parser.getCallExpression(expectedExpressionCallee);
+    const defineMethodCalls = parser.getImportedMethodCalls(typeApiImport, {
+        type: 'Identifier',
+        name: 'defineMethod',
+    });
     
     const methodNames = defineMethodCalls.map((node) => {
         const name = node.arguments[0];
@@ -120,7 +79,44 @@ class ModuleParser {
             return true;
         })
     }
+    
+    public getImportedCallee(declaration: ESTree.ImportDeclaration, identifier: ESTree.Identifier): ParsedExpressionCallee {
+        for (const specifier of declaration.specifiers) {
+            const importSpecifier = getImportSpecifier(specifier, {
+                imported: identifier,
+            });
+            
+            if (importSpecifier) {
+                return importSpecifier.local;
+            }
+            
+            if (specifier.type === 'ImportDefaultSpecifier') {
+                return {
+                    type: 'MemberExpression',
+                    object: specifier.local,
+                    property: identifier
+                };
+            }
+            
+            if (specifier.type === 'ImportNamespaceSpecifier') {
+                return {
+                    type: 'MemberExpression',
+                    object: specifier.local,
+                    property: identifier,
+                };
+            }
+        }
+        
+        throw new Error('Could not find expected expression callee');
+    }
+    
+    public getImportedMethodCalls(declaration: ESTree.ImportDeclaration, identifier: ESTree.Identifier) {
+        const callee = this.getImportedCallee(declaration, identifier);
+        return this.getCallExpression(callee);
+    }
 }
+
+type ParsedExpressionCallee = ESTree.Identifier | Pick<ESTree.MemberExpression, 'property' | 'type' | 'object'>;
 
 function getImportSpecifier(node: ESTree.Node, specifier: {
     imported: ESTree.Identifier;
