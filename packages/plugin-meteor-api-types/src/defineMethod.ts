@@ -1,3 +1,4 @@
+/// <reference types="meteor/globals">
 import type { GenericSchema } from 'valibot';
 
 export function defineMethod<
@@ -5,8 +6,18 @@ export function defineMethod<
     TResult,
     TSchemaInput,
     TSchemaTOutput,
->(name: TName, definition: MethodDeclaration<TSchemaInput, TSchemaTOutput, TResult>) {
-    // todo
+    TDefinition extends MethodDeclaration<TSchemaInput, TSchemaTOutput, TResult> = MethodDeclaration<TSchemaInput, TSchemaTOutput, TResult>
+>(name: TName, definition: TDefinition): DefinedMethod<TDefinition> {
+    return ((params: TSchemaInput) => {
+        return new Promise((resolve, reject) => {
+            Meteor.call(name, params, (error: unknown, response: TResult) => {
+                if (error) {
+                    return reject(error);
+                }
+                resolve(response);
+            });
+        })
+    }) as DefinedMethod<TDefinition>
 }
 
 interface MethodDeclaration<
