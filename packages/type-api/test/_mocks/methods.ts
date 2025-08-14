@@ -3,16 +3,18 @@ export const MOCK_MODULE_METHODS = {
     'named import': `
         import { defineMethod } from '@meteor-vite/type-api';
         
-        export const createLink = defineMethod('links.create', {
-            handler: () => {
+        export const createLink = defineMethod({
+            name: 'links.create',
+            method: () => {
                 return {
                     myLink: { href: 'http://example.com' }
                 }
             }
         });
         
-        export const updateLink = defineMethod('links.update', {
-            handler: (params) => {
+        export const updateLink = defineMethod({
+            name: 'links.update',
+            method: (params) => {
                 return 'this should be omitted from client script';
             }
         })
@@ -22,16 +24,18 @@ export const MOCK_MODULE_METHODS = {
     'wildcard import': `
         import * as TypeApi from '@meteor-vite/type-api';
         
-        export const createLink = TypeApi.defineMethod('links.create', {
-            handler: () => {
+        export const createLink = TypeApi.defineMethod({
+            name: 'links.create',
+            method: () => {
                 return {
                     myLink: { href: 'http://example.com' }
                 }
             }
         });
         
-        export const updateLink = TypeApi.defineMethod('links.update', {
-            handler: (params) => {
+        export const updateLink = TypeApi.defineMethod({
+            name: 'links.update',
+            method: (params) => {
                 return 'this should be omitted from client script';
             }
         })
@@ -41,16 +45,18 @@ export const MOCK_MODULE_METHODS = {
     'default import': `
         import TypeApi from '@meteor-vite/type-api';
         
-        export const createLink = TypeApi.defineMethod('links.create', {
-            handler: () => {
+        export const createLink = TypeApi.defineMethod({
+            name: 'links.create',
+            method: () => {
                 return {
                     myLink: { href: 'http://example.com' }
                 }
             }
         });
         
-        export const updateLink = TypeApi.defineMethod('links.update', {
-            handler: (params) => {
+        export const updateLink = TypeApi.defineMethod({
+            name: 'links.update',
+            method: (params) => {
                 return 'this should be omitted from client script';
             }
         })
