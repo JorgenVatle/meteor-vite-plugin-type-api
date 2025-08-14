@@ -9,18 +9,21 @@ export default function meteorApiTypePlugin(userConfig: PluginConfiguration): Pl
 }
 
 const PLUGIN_DEFAULTS = {
-    methods: {
-        dirname: 'methods',
-        fileExtension: '.methods.ts',
+    dirname: {
+        methods: 'methods',
+        publications: 'publications',
     },
-    publications: {
-        dirname: 'publications',
-        fileExtension: '.publications.ts',
+    fileExtension: {
+        methods: '.methods.ts',
+        publications: '.publications.ts',
     },
 } satisfies MergedPluginConfiguration;
 
 export interface PluginConfiguration {
-    methods?: {
+    /**
+     * Treats all modules within the provided dirname as Meteor methods/publications.
+     */
+    dirname?: {
         /**
          * Parent directory for Meteor methods.
          *
@@ -29,20 +32,8 @@ export interface PluginConfiguration {
          *
          * @default methods
          */
-        dirname?: string;
+        methods?: string;
         
-        /**
-         * File extension for Meteor methods.
-         *
-         * This can be used as an alternative to nesting methods under a
-         * methods directory.
-         *
-         * @default .methods.ts
-         */
-        fileExtension?: string;
-    },
-    
-    publications?: {
         /**
          * Parent directory for Meteor publications.
          *
@@ -51,7 +42,22 @@ export interface PluginConfiguration {
          *
          * @default publications
          */
-        dirname?: string;
+        publications?: string;
+    },
+    
+    /**
+     * Treats the provided file extensions as Meteor methods/publications.
+     */
+    fileExtension?: {
+        /**
+         * File extension for Meteor methods.
+         *
+         * This can be used as an alternative to nesting methods under a
+         * methods directory.
+         *
+         * @default .methods.ts
+         */
+        methods?: string;
         
         /**
          * File extension for Meteor publications.
@@ -61,7 +67,7 @@ export interface PluginConfiguration {
          *
          * @default .publications.ts
          */
-        fileExtension?: string;
+        publications?: string;
     }
 }
 
