@@ -14,5 +14,8 @@
   },
   "workspaces": [
     "packages/plugin-meteor-api-types"
-  ]
+  ],
+  "devDependencies": {
+    "@typescript/native-preview": "^7.0.0-dev.20250813.1"
+  }
 }
