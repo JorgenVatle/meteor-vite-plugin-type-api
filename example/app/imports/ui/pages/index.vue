@@ -19,7 +19,8 @@ const form = reactive({
     error: null as Error | null,
     async submit() {
         try {
-            await createLink(form.data);
+            const linkId = await createLink(form.data);
+            console.log(`Created link: ${linkId}`);
         } catch (error) {
             form.error = new Error('Failed to create link', { cause: error });
             console.error(form.error);
