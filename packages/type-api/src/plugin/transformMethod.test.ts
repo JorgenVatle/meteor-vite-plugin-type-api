@@ -81,6 +81,11 @@ describe.each(
     it('Located an import for @meteor-vite/type-api', () => {
         console.log(inspect(notableNodes.typeApiImport, { depth: 6, colors: true }));
         expect(notableNodes.typeApiImport).toBeTruthy();
+    });
+    
+    it('Parses call expressions', () => {
+        console.log(inspect(notableNodes.calls, { depth: 6, colors: true }));
+        expect(notableNodes.calls.length).toBeGreaterThan(0);
     })
 });
 

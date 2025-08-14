@@ -7,6 +7,7 @@ export function transformMethod(code: string) {
     const parser = new ModuleParser(code);
     const notableNodes = {
         typeApiImport: parser.getImport('@meteor-vite/type-api'),
+        calls: parser.getCallExpression(),
     }
     
     return {
