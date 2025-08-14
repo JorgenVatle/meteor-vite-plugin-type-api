@@ -11,14 +11,14 @@
   "exports": {
     ".": {
       "browser": {
-        "types": "./dist/browser/index.d.ts",
-        "import": "./dist/browser/index.js",
-        "require": "./dist/browser/index.cjs"
+        "types": "./dist/client/index.d.ts",
+        "import": "./dist/client/index.js",
+        "require": "./dist/client/index.cjs"
       },
       "default": {
-        "types": "./dist/node/index.d.ts",
-        "import": "./dist/node/index.js",
-        "require": "./dist/node/index.cjs"
+        "types": "./dist/server/index.d.ts",
+        "import": "./dist/server/index.js",
+        "require": "./dist/server/index.cjs"
       }
     }
   },
