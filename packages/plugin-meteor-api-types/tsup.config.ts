@@ -5,7 +5,7 @@ function buildConfig(options: BuildConfigOptions): Options {
         name: options.platform.toUpperCase(),
         entry: ['./src/index.ts'],
         format: ['esm', 'cjs'],
-        outDir: 'dist/node',
+        outDir: `dist/${options.platform}`,
         skipNodeModulesBundle: true,
         dts: true,
         clean: true,
