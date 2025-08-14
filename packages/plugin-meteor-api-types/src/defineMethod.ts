@@ -6,7 +6,7 @@ export function defineMethod<
     TSchemaInput,
     TSchemaTOutput,
 >(name: TName, definition: MethodDeclaration<TSchemaInput, TSchemaTOutput, TResult>) {
-    if (import.meta.env.SSR) {
+    if (__IS_SERVER__) {
         Meteor.methods({
             [name]: (params: TSchemaInput) => {
                 const schemaOutput = v.parse(definition.schema, params);
