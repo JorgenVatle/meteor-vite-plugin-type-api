@@ -73,7 +73,7 @@ describe.each(
     const { AST } = transformMethod(code);
     
     it('Has an AST', () => {
-        console.log(inspect(AST, { depth: 4, colors: true }));
+        console.log(inspect(AST, { depth: 6, colors: true }));
         
         expect(AST).toBeTruthy();
     })
