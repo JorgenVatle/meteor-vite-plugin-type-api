@@ -23,31 +23,11 @@ type BuildConfigOptions = Omit<Options, 'platform'> & {
 };
 
 export default defineConfig([
-    {
-        entry: ['./src/index.ts'],
-        format: ['esm', 'cjs'],
-        outDir: 'dist/node',
+    buildConfig({
         platform: 'node',
-        skipNodeModulesBundle: true,
-        dts: true,
-        clean: true,
-        define: {
-            Meteor: 'Meteor',
-            __IS_SERVER__: 'true',
-        }
-    },
-    {
-        entry: ['./src/index.ts'],
-        outDir: 'dist/browser',
-        clean: true,
-        format: ['esm', 'cjs'],
+    }),
+    buildConfig({
         platform: 'browser',
-        skipNodeModulesBundle: true,
-        dts: true,
         treeshake: 'smallest',
-        define: {
-            Meteor: 'Meteor',
-            __IS_SERVER__: 'false',
-        }
-    }
+    }),
 ])
