@@ -43,5 +43,8 @@
   },
   "peerDependencies": {
     "valibot": "^1.1.0"
+  },
+  "dependencies": {
+    "estree-walker": "^3.0.3"
   }
 }
