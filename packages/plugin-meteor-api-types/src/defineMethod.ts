@@ -33,7 +33,7 @@ interface MethodDeclaration<
     TResult = unknown
 > {
     schema: v.GenericSchema<TSchemaInput, TSchemaTOutput>;
-    method: (params: TSchemaTOutput) => TResult
+    method: (params: TSchemaTOutput) => TResult | Promise<TResult>
 }
 
 type DefinedMethod<
