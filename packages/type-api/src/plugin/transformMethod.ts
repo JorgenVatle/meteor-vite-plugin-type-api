@@ -33,6 +33,7 @@ export function transformMethod(code: string) {
             
             return property.value.value;
         }
+        throw new Error('Unable to find method name in defineMethod call expression');
     })
     
     return {
