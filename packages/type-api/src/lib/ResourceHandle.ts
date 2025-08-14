@@ -21,7 +21,7 @@ export function defineResourceHandle<
     TResult = unknown
 >(handle: ResourceHandle<TParams, TResult>) {
     const label = getLabel(handle);
-    console.debug(`${label} Defined resouce handle`);
+    console.debug(`${label} Defined resource handle`);
     return (async (...params: TParams): Promise<TResult> => {
         try {
             console.debug(`${label} Calling with params: `, params);
