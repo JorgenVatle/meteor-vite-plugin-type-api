@@ -24,7 +24,9 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsup"
+    "build": "tsup",
+    "clean": "rm -rf ./dist",
+    "prepare": "npm run build || echo 'Failed to prepare build output'"
   },
   "devDependencies": {
     "@types/meteor": "^2.9.9",
