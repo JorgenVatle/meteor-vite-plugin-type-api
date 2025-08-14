@@ -1,4 +1,3 @@
-/// <reference types="meteor">
 import * as v from 'valibot';
 
 export function defineMethod<
