@@ -35,18 +35,18 @@ export function defineResourceHandle<
     
     console.debug(`${label} Defined resource handle`);
     
-    function wrappedHandle(this: any, params: TOutputParams): any {
+    function wrappedHandle(this: any, ...params: TOutputParams): any {
         try {
             console.debug(`${label} Incoming request: `, params);
             const schemaOutput = v.parse(handle.schema, params);
-            return handle.run.apply(this, [schemaOutput]);
+            return handle.run.apply(this, schemaOutput);
         } catch (error) {
             console.debug(`${label} Error: `, error);
             throw error;
         }
     }
     
-    function wrappedCall(this: any, ...params: TOutputParams): any {
+    function wrappedCall(this: any, ...params: TInputParams): any {
         console.debug(`${label} Calling with params: `, params);
         const result = handle.run.apply(this, params);
         Promise.resolve(result).catch((error) => {
