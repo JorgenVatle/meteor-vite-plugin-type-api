@@ -22,7 +22,49 @@ const MOCK_MODULE = {
             }
         })
     // </editor-fold>
-    `
+    `,
+    
+    // language="javascript"
+    wildcardImport: `
+        // <editor-fold desc="Inline template">
+        import * as TypeApi from '@meteor-vite/type-api';
+        
+        export const createLink = TypeApi.defineMethod('links.create', {
+            handler: () => {
+                return {
+                    myLink: { href: 'http://example.com' }
+                }
+            }
+        });
+        
+        export const updateLink = TypeApi.defineMethod('links.update', {
+            handler: (params) => {
+                return 'this should be omitted from client script';
+            }
+        })
+    // </editor-fold>
+    `,
+    
+    // language="javascript"
+    defaultImport: `
+        // <editor-fold desc="Inline template">
+        import TypeApi from '@meteor-vite/type-api';
+        
+        export const createLink = TypeApi.defineMethod('links.create', {
+            handler: () => {
+                return {
+                    myLink: { href: 'http://example.com' }
+                }
+            }
+        });
+        
+        export const updateLink = TypeApi.defineMethod('links.update', {
+            handler: (params) => {
+                return 'this should be omitted from client script';
+            }
+        })
+    // </editor-fold>
+    `,
 }
 
 describe('Named type-api import', () => {
