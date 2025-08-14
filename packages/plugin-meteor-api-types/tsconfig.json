@@ -37,4 +37,5 @@
     "moduleDetection": "force",
     "skipLibCheck": true,
   },
+  "include": ["src", "tsup.config.ts"],
 }
