@@ -1,13 +1,6 @@
 import { mergeConfig, type Plugin } from 'vite';
 import type { RequiredDeep } from '../lib/UtilityTypes';
 
-export default function meteorApiTypePlugin(userConfig: PluginConfiguration): Plugin {
-    const config = mergeConfig(PLUGIN_DEFAULTS, userConfig);
-    return {
-        name: 'meteor-vite: meteor-api-types',
-    }
-}
-
 const PLUGIN_DEFAULTS = {
     dirname: {
         methods: 'methods',
@@ -18,6 +11,13 @@ const PLUGIN_DEFAULTS = {
         publications: '.publications.ts',
     },
 } satisfies MergedPluginConfiguration;
+
+export default function meteorApiTypePlugin(userConfig: PluginConfiguration): Plugin {
+    const config = mergeConfig(PLUGIN_DEFAULTS, userConfig);
+    return {
+        name: 'meteor-vite: meteor-api-types',
+    }
+}
 
 export interface PluginConfiguration {
     /**
