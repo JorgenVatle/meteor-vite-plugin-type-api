@@ -37,6 +37,8 @@ export default defineConfig({
 meteorApiTypes({
     /**
      * Treats the provided directory names as Meteor methods/publications.
+     * Publications and methods can share the same directory or file extension 
+     * if you want to manage both in the same file.
      * @optional
      */
     dirname: {
@@ -122,6 +124,47 @@ createLink({
     description: 'Example link'
 }).then((id) => {
     console.log(`Created link: ${id}`);
+})
+```
+
+## Publications
+
+### Defining publications
+Define your Meteor publications in a file with a `.publications.ts` extension or nest them under a `publications/` parent directory.
+
+Example filename: `/imports/api/links.publications.ts`
+```typescript
+import { definePublication } from '@meteor-vite/api-types';
+
+export const getLinks = definePublication({
+    schema: v.object({
+        createdAt: v.object({
+            $gt: v.optional(v.date()),
+            $lt: v.optional(v.date()),
+        })
+    }),
+    run(query) {
+        return Links.find(query);
+    }
+});
+```
+
+### Subscribing to publications
+Publications can be imported directly from anywhere in your app. This works both on the server and client.
+
+```typescript
+import { getLinks } from '/imports/api/links.publications';
+
+const subscription = getLinks({
+    createdAt: {
+        $lt: new Date(2025, 0, 1),
+    }
+});
+
+Tracker.autorun(() => {
+    console.log({
+        ready: subscription.ready(),
+    });
 })
 ```
 
