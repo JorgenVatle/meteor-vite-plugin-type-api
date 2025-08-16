@@ -103,7 +103,7 @@ import { defineMethod } from '@meteor-vite/api-types';
 export const createLink = defineMethod({
     schema: v.object({
         href: v.string(),
-        description: v.string().optional(),
+        description: v.optional(v.string()),
     }),
     run({ description, href }) {
         return Links.insert({ description, href });
