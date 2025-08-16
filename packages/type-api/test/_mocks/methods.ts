@@ -1,7 +1,7 @@
 export const MOCK_MODULE_METHODS = {
     // language="javascript"
     'named import': `
-        import { defineMethod } from '@meteor-vite/type-api';
+        import { defineMethod, definePublication } from '@meteor-vite/type-api';
         
         export const createLink = defineMethod({
             name: 'links.create',
@@ -17,6 +17,10 @@ export const MOCK_MODULE_METHODS = {
             run: (params) => {
                 return 'this should be omitted from client script';
             }
+        });
+        
+        export const getLinks = definePublication({
+            run: () => {}
         })
     `,
     
