@@ -18,4 +18,23 @@ describe('defineMethod', () => {
         })
     });
     
+    it('yields a promise when called', () => {
+        const createLink = defineMethod({
+            schema: v.optional(schema),
+            run: () => {
+                return {
+                    href: 'http://example.com',
+                    title: 'Example',
+                }
+            }
+        });
+        
+        expectTypeOf(createLink(undefined)).toEqualTypeOf<
+            Promise<{
+                href: string;
+                title: string;
+            }>
+        >();
+    })
+    
 })
