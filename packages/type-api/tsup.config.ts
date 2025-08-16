@@ -30,20 +30,29 @@ function buildConfig(options: BuildConfigOptions): Options {
 
 export default defineConfig([
     buildConfig({
-        name: 'server',
-        platform: 'node',
-        entry: ['./src/server/index.ts'],
+        name: 'entry',
+        platform: 'neutral',
+        entry: ['./src/entry/index.ts'],
+        sourcemap: true,
     }),
     buildConfig({
-        name: 'client',
+        name: 'internal/server',
+        platform: 'node',
+        entry: ['./src/server/index.ts'],
+        dts: false,
+    }),
+    buildConfig({
+        name: 'internal/client',
         platform: 'browser',
         treeshake: 'smallest',
         entry: ['./src/client/index.ts'],
+        dts: false,
     }),
     buildConfig({
         name: 'plugin',
         platform: 'node',
         entry: ['./src/plugin/index.ts'],
+        sourcemap: true,
     })
 ])
 

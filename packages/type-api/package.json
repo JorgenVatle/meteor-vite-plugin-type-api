@@ -10,16 +10,20 @@
   ],
   "exports": {
     ".": {
-      "browser": {
-        "types": "./dist/client/index.d.ts",
-        "import": "./dist/client/index.js",
-        "require": "./dist/client/index.cjs"
-      },
-      "default": {
-        "types": "./dist/server/index.d.ts",
-        "import": "./dist/server/index.js",
-        "require": "./dist/server/index.cjs"
-      }
+      "types": "./dist/entry/index.d.ts",
+      "import": "./dist/entry/index.js",
+      "require": "./dist/entry/index.cjs",
+      "default": "./dist/entry/index.js"
+    },
+    "./client": {
+      "import": "./dist/internal/client/index.js",
+      "require": "./dist/internal/client/index.cjs",
+      "default": "./dist/internal/client/index.js"
+    },
+    "./server": {
+      "import": "./dist/internal/server/index.js",
+      "require": "./dist/internal/server/index.cjs",
+      "default": "./dist/internal/server/index.js"
     },
     "./plugin": {
       "types": "./dist/plugin/index.d.ts",
