@@ -36,13 +36,13 @@ export default defineConfig([
         sourcemap: true,
     }),
     buildConfig({
-        name: 'server',
+        name: 'internal/server',
         platform: 'node',
         entry: ['./src/server/index.ts'],
         dts: false,
     }),
     buildConfig({
-        name: 'client',
+        name: 'internal/client',
         platform: 'browser',
         treeshake: 'smallest',
         entry: ['./src/client/index.ts'],

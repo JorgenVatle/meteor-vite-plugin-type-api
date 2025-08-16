@@ -16,14 +16,14 @@
       "default": "./dist/entry/index.js"
     },
     "./client": {
-      "import": "./dist/client/index.js",
-      "require": "./dist/client/index.cjs",
-      "default": "./dist/client/index.js"
+      "import": "./dist/internal/client/index.js",
+      "require": "./dist/internal/client/index.cjs",
+      "default": "./dist/internal/client/index.js"
     },
     "./server": {
-      "import": "./dist/server/index.js",
-      "require": "./dist/server/index.cjs",
-      "default": "./dist/server/index.js"
+      "import": "./dist/internal/server/index.js",
+      "require": "./dist/internal/server/index.cjs",
+      "default": "./dist/internal/server/index.js"
     },
     "./plugin": {
       "types": "./dist/plugin/index.d.ts",
