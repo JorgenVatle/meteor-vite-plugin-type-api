@@ -42,5 +42,10 @@
     "moduleDetection": "force",
     "skipLibCheck": true,
   },
-  "include": ["./src", "./test", "./tsup.config.ts"],
+  "include": [
+    "./src",
+    "./test",
+    "./tsup.config.ts",
+    "./vite.config.ts"
+  ],
 }
