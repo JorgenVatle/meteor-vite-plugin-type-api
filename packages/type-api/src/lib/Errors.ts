@@ -1,3 +1,3 @@
-import { ApiTypeError } from './ApiTypeError';
+export class ApiTypeError extends Error {}
 
 export class ApiNotCompiled extends ApiTypeError {}
