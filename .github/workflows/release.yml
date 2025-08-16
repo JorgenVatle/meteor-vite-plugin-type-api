@@ -1,5 +1,5 @@
 name: Release
-run-name: '📦 Release'
+run-name: '📦 Release: ${{ github.event.head_commit.message || github.event.pull_request.title }}'
 
 on:
   push:
