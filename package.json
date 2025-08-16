@@ -15,7 +15,8 @@
     "build": "npm run build -w packages/type-api --",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prerelease": "npm run build",
-    "release": "changeset publish"
+    "release": "changeset publish",
+    "lint": "npm run lint --ws"
   },
   "workspaces": [
     "packages/type-api"
