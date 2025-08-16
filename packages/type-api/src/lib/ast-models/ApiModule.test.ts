@@ -1,4 +1,5 @@
 import { ApiModule } from '@/lib/ast-models/ApiModule';
+import { ENTRY_MODULE } from '@/lib/Environments';
 import { MOCK_MODULE_METHODS } from '@/test/_mocks/methods';
 import { describe, expect, it } from 'vitest';
 
@@ -33,7 +34,7 @@ describe.each(Object.entries(MOCK_MODULE_METHODS))('ApiModule: %s', (type, code)
         });
         
         it('Rewrites library import paths', () => {
-            expect('code').toContain('@meteor-vite/typed-api/client');
+            expect('code').toContain(ENTRY_MODULE.client);
         })
     })
     
