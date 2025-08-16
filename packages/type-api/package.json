@@ -8,6 +8,10 @@
   "files": [
     "dist"
   ],
+  "homepage": "https://github.com/JorgenVatle/meteor-vite-plugin-type-api",
+  "bugs": {
+    "url": "https://github.com/JorgenVatle/meteor-vite-plugin-type-api/issues"
+  },
   "publishConfig": {
     "access": "public"
   },
