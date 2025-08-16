@@ -12,7 +12,7 @@
   "scripts": {
     "start": "npm run build && npm run example:start",
     "example:start": "cd example/app && npm start",
-    "build": "npm run build -w packages/type-api",
+    "build": "npm run build -w packages/type-api --",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "workspaces": [
