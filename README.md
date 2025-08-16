@@ -1,18 +1,19 @@
 # @meteor-vite/type-api
 A Vite plugin for generating type-safe Meteor methods and publications.
 
-<p align=center>
-    <a href="https://npmjs.com/package/@meteor-vite/type-api">
-        <img alt="npm" src="https://img.shields.io/npm/v/@meteor-vite/type-api?style=flat-square">
-   </a>
-</p>
-
 > Follows the same pattern as [`zodern:relay`](https://github.com/zodern/meteor-relay) with some minor differences: 
 > - [Valibot](https://valibot.dev/) is used for schema validation as opposed to [`zod`](https://zod.dev/)
 > - Relay modules are parsed with Rollup's built-in AST parser.
 > - Method and publication directories are configurable through Vite allowing for methods to be defined by either a custom file extension, directory name or both.
 > 
 > `zodern:relay` is supported by Vite through [`@meteor-vite/plugin-zodern-relay`](https://github.com/JorgenVatle/meteor-vite/tree/release/npm-packages/%40meteor-vite/plugin-zodern-relay).
+
+ 
+<p>
+    <a href="https://npmjs.com/package/@meteor-vite/type-api">
+        <img alt="npm" src="https://img.shields.io/npm/v/@meteor-vite/type-api?style=flat-square">
+   </a>
+</p>
 
 
 ## Installation
