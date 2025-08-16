@@ -1,5 +1,6 @@
 import { ResourceDefinition } from '@/lib/ast-models/ResourceDefinition';
 import { ENTRY_MODULE, getEntryModule, isSupportedEnvironment, type TargetEnvironment } from '@/lib/Environments';
+import { ApiTransformError } from '@/lib/Errors';
 import { generate } from 'escodegen';
 import type ESTree from 'estree';
 import { type NodePath, traverse } from 'estree-toolkit';
@@ -72,7 +73,7 @@ export class ApiModule {
     protected removeUnusedBindings() {
         const scope = this.path?.scope;
         if (!scope) {
-            throw new Error('Missing scope!');
+            throw new ApiTransformError('Missing scope!');
         }
         
         traverse(this.path?.node!, {

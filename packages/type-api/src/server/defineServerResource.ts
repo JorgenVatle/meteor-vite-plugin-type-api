@@ -1,5 +1,6 @@
 /// <reference types="meteor" />
 import { resourceLabel } from '@/lib/Environments';
+import { ClientOnly } from '@/lib/Errors';
 import type { InternalResourceConfig } from '@/lib/ResourceConfig';
 import { createCallHandle, createRequestHandle } from '@/lib/ResourceHandle';
 
@@ -37,6 +38,6 @@ export function definePublication(config: InternalResourceConfig<Mongo.Cursor<an
         config,
         type: 'publication',
     }, () => {
-        throw new Error('This method can only be called on the client')
+        throw new ClientOnly('This method can only be called on the client')
     });
 }

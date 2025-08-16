@@ -1,3 +1,4 @@
+import { InvalidEnvironment } from '@/lib/Errors';
 import type { InternalResourceConfig } from '@/lib/ResourceConfig';
 
 export const SUPPORTED_ENVIRONMENTS = [
@@ -28,5 +29,5 @@ export function getEntryModule(environment: TargetEnvironment) {
     if (environment in ENTRY_MODULE) {
         return ENTRY_MODULE[environment]
     }
-    throw new Error(`Unable to determine entry module for environment: ${environment}`);
+    throw new InvalidEnvironment(`Unable to determine entry module for environment: ${environment}`);
 }
