@@ -1,9 +1,9 @@
-# @meteor-vite/api-types
+# @meteor-vite/type-api
 A Vite plugin for generating type-safe Meteor methods and publications.
 
 <p align=center>
-    <a href="https://npmjs.com/package/@meteor-vite/api-types">
-        <img alt="npm" src="https://img.shields.io/npm/v/@meteor-vite/api-types?style=flat-square">
+    <a href="https://npmjs.com/package/@meteor-vite/type-api">
+        <img alt="npm" src="https://img.shields.io/npm/v/@meteor-vite/type-api?style=flat-square">
    </a>
 </p>
 
@@ -19,13 +19,13 @@ A Vite plugin for generating type-safe Meteor methods and publications.
 
 Add the package to your project:
 ```bash
-npm install @meteor-vite/api-types
+npm install @meteor-vite/type-api
 ```
 
 ## Configuration
 In your `vite.config.ts` file:
 ```typescript
-import meteorApiTypes from '@meteor-vite/api-types/plugin';
+import meteorApiTypes from '@meteor-vite/type-api/plugin';
 
 export default defineConfig({
     plugins: [
@@ -106,7 +106,7 @@ Define your Meteor methods in a file with a `.methods.ts` extension or nest them
 
 Example filename: `/imports/api/links.methods.ts`
 ```typescript
-import { defineMethod } from '@meteor-vite/api-types';
+import { defineMethod } from '@meteor-vite/type-api';
 
 export const createLink = defineMethod({
     schema: v.object({
@@ -140,7 +140,7 @@ Define your Meteor publications in a file with a `.publications.ts` extension or
 
 Example filename: `/imports/api/links.publications.ts`
 ```typescript
-import { definePublication } from '@meteor-vite/api-types';
+import { definePublication } from '@meteor-vite/type-api';
 
 export const getLinks = definePublication({
     schema: v.object({
