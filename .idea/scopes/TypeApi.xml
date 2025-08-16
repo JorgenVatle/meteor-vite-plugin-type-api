@@ -1,3 +1,3 @@
 <component name="DependencyValidationManager">
-  <scope name="TypeApi" pattern="file[vite-plugin-meteor-api-types]:packages/type-api//*" />
+  <scope name="TypeApi" pattern="file[meteor-vite-plugin-type-api]:packages/type-api//*" />
 </component>
