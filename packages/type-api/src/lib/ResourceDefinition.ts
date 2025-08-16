@@ -41,10 +41,10 @@ export class ResourceDefinition {
             const parsed = v.parse(schema, params);
             resource.log('debug', 'Parsed request', { parsed });
             
-            const result = await run.apply(this, [parsed]);
-            resource.log('debug', 'Response', result);
+            const data = await run.apply(this, [parsed]);
+            resource.log('debug', 'Response', { data });
             
-            return result;
+            return data;
         }
         
         return handle;
