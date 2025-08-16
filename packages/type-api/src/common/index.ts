@@ -1,15 +1,17 @@
 import type { ResourceConfig, ResourceHandle } from '@/lib/ResourceConfig';
 
 export function defineMethod<
-    TParams extends any[],
-    TResult
->(config: ResourceConfig<TResult, TParams>): ResourceHandle<Promise<TResult>, TParams> {
+    TResult,
+    TSchemaInput = unknown,
+    TSchemaOutput = unknown,
+>(config: ResourceConfig<TResult, TSchemaInput, TSchemaOutput>): ResourceHandle<Promise<TResult>, TSchemaInput> {
     throw new Error('Method has not been transformed by Meteor-Vite!');
 }
 
 export function definePublication<
-    TParams extends any[],
-    TResult
->(config: ResourceConfig<TResult, TParams>): ResourceHandle<Meteor.SubscriptionHandle, TParams> {
+    TResult,
+    TSchemaInput = unknown,
+    TSchemaOutput = unknown,
+>(config: ResourceConfig<TResult, TSchemaInput, TSchemaOutput>): ResourceHandle<Meteor.SubscriptionHandle, TSchemaInput> {
     throw new Error('Publication has not been transformed by Meteor-Vite!');
 }
