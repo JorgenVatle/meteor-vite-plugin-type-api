@@ -2,7 +2,7 @@
   "name": "@meteor-vite/type-api",
   "version": "1.0.1",
   "description": "",
-  "license": "ISC",
+  "license": "MIT",
   "author": "Jørgen Vatle <Jorgen@WcAServices.net> (https://github.com/JorgenVatle)",
   "type": "module",
   "files": [
