@@ -10,6 +10,7 @@ Follows the same pattern as [`zodern:relay`](https://github.com/zodern/meteor-re
 - [Valibot](https://valibot.dev/) is used for schema validation as opposed to [`zod`](https://zod.dev/)
 - Relay modules are parsed with Rollup's built-in AST parser.
 - Method and publication directories are configurable through Vite allowing for methods to be defined by either a custom file extension, directory name or both.
+- No support for pipelines or optional custom method stubs. 
 
 > [!NOTE]
 > If you want to use [`zodern:relay`](https://github.com/zodern/meteor-relay) with Vite, instead use [`@meteor-vite/plugin-zodern-relay`](https://github.com/JorgenVatle/meteor-vite/tree/release/npm-packages/%40meteor-vite/plugin-zodern-relay).
