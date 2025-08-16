@@ -18,7 +18,7 @@ function virtualModuleId(scope: 'methods' | 'publications', id: string) {
     return `virtual:@meteor-vite/api/${scope}/${id}`;
 }
 
-export function TransformerPlugin(userConfig: PluginConfiguration): PluginOption {
+export function TransformerPlugin(userConfig: PluginConfiguration = {}): PluginOption {
     const config = mergeConfig(PLUGIN_DEFAULTS, userConfig) as MergedPluginConfiguration;
     
     return {
