@@ -81,7 +81,9 @@ export default defineConfig({
 ## Methods
 
 ### Defining methods
-> `/imports/api/links.methods.ts`;
+Define your Meteor methods in a file with a `.methods.ts` extension or nest them under a `methods/` parent directory.
+
+Example filename: `/imports/api/links.methods.ts`
 ```typescript
 import { defineMethod } from '@meteor-vite/api-types';
 
@@ -97,6 +99,8 @@ export const createLink = defineMethod({
 ```
 
 ### Calling methods
+Methods can be imported directly from anywhere in your app. This works both on the server and client.
+
 ```typescript
 import { createLink } from '/imports/api/links.methods';
 
