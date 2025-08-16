@@ -10,16 +10,10 @@
   ],
   "exports": {
     ".": {
-      "browser": {
-        "types": "./dist/client/index.d.ts",
-        "import": "./dist/client/index.js",
-        "require": "./dist/client/index.cjs"
-      },
-      "default": {
-        "types": "./dist/server/index.d.ts",
-        "import": "./dist/server/index.js",
-        "require": "./dist/server/index.cjs"
-      }
+      "types": "./dist/common/index.d.ts",
+      "import": "./dist/common/index.js",
+      "require": "./dist/common/index.cjs",
+      "default": "./dist/common/index.js"
     },
     "./client": {
       "import": "./dist/client/index.js",
