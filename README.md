@@ -1,6 +1,12 @@
 # @meteor-vite/api-types
 A Vite plugin for generating type-safe Meteor methods and publications.
 
+<p align=center>
+    <a href="https://npmjs.com/package/@meteor-vite/api-types">
+        <img alt="npm" src="https://img.shields.io/npm/v/@meteor-vite/api-types?style=flat-square">
+   </a>
+</p>
+
 > Follows the same pattern as [`zodern:relay`](https://github.com/zodern/meteor-relay) with some minor differences: 
 > - [Valibot](https://valibot.dev/) is used for schema validation as opposed to [`zod`](https://zod.dev/)
 > - Relay modules are parsed with Rollup's built-in AST parser.
