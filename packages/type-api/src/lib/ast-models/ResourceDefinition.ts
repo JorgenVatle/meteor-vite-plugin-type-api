@@ -1,5 +1,5 @@
-import type { ApiModule } from '@/ast-models/ApiModule';
-import { ObjectExpressionModel } from '@/ast-models/ObjectExpressionModel';
+import type { ApiModule } from '@/lib/ast-models/ApiModule';
+import { ObjectExpressionModel } from '@/lib/ast-models/ObjectExpressionModel';
 import type { TargetEnvironment } from '@/lib/Environments';
 import { generate } from 'escodegen';
 import type ESTree from 'estree';

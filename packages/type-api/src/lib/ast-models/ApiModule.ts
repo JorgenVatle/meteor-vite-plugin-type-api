@@ -1,4 +1,4 @@
-import { ResourceDefinition } from '@/ast-models/ResourceDefinition';
+import { ResourceDefinition } from '@/lib/ast-models/ResourceDefinition';
 import { isSupportedEnvironment, type TargetEnvironment } from '@/lib/Environments';
 import { generate } from 'escodegen';
 import type ESTree from 'estree';
