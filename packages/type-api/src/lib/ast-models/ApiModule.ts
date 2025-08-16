@@ -1,5 +1,5 @@
 import { ResourceDefinition } from '@/lib/ast-models/ResourceDefinition';
-import { isSupportedEnvironment, type TargetEnvironment } from '@/lib/Environments';
+import { ENTRY_MODULE, getEntryModule, isSupportedEnvironment, type TargetEnvironment } from '@/lib/Environments';
 import { generate } from 'escodegen';
 import type ESTree from 'estree';
 import { type NodePath, traverse } from 'estree-toolkit';
@@ -113,8 +113,8 @@ export class ApiModule {
             if (!source) {
                 return;
             }
-            if (source.value?.toString() === '@meteor-vite/typed-api') {
-                source.value = `@meteor-vite/typed-api/${target}`;
+            if (source.value?.toString() === ENTRY_MODULE.main) {
+                source.value = getEntryModule(target);
             }
         }
     }
