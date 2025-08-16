@@ -1,45 +1,32 @@
 /// <reference types="meteor" />
-import { resourceLabel } from '@/lib/Environments';
-import type { InternalResourceConfig } from '@/lib/ResourceConfig';
-import { createCallHandle } from '@/lib/ResourceHandle';
+import { ResourceDefinition, type ResourceDefinitionConfig } from '@/lib/ResourceDefinition';
 
-export function defineMethod(config: InternalResourceConfig) {
-    const name = config.name || config._defaultName;
-    const label = resourceLabel('method', config);
-    
-    console.debug(`${label} Defined`);
+export function defineMethod(config: ResourceDefinitionConfig) {
+    const resource = new ResourceDefinition('method', config);
     
     // Todo: use stub if available
     // Meteor.methods({
-    //     [name]: createRequestHandle({
-    //         config,
-    //         type: 'method',
-    //     }),
+    //     [resource.name]: resource.requestHandle(),
     // });
     
-    return createCallHandle({
-        config,
-        type: 'method',
-    }, async (...params) => {
-        return new Promise((resolve, reject) => {
-            Meteor.call(name, ...params, (err: null | Error, response: unknown) => {
-                if (err) {
-                    return reject(err);
-                }
-                resolve(response);
+    return resource.callHandle(
+        async (...params) => {
+            return new Promise((resolve, reject) => {
+                Meteor.call(resource.name, ...params, (err: null | Error, response: unknown) => {
+                    if (err) {
+                        return reject(err);
+                    }
+                    resolve(response);
+                })
             })
-        })
-    });
+        }
+    );
 }
 
-export function definePublication(config: InternalResourceConfig<Mongo.Cursor<any>>) {
-    const name = config.name || config._defaultName;
-    const label = resourceLabel('publication', config);
+export function definePublication(config: ResourceDefinitionConfig) {
+    const resource = new ResourceDefinition('publication', config);
     
-    console.debug(`${label} Defined`);
-    
-    return createCallHandle({
-        config,
-        type: 'publication',
-    }, (...params) => Meteor.subscribe(name, ...params));
+    return resource.callHandle((...params) => {
+        return Meteor.subscribe(resource.name, ...params)
+    });
 }
