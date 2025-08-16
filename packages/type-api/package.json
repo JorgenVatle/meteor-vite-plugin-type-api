@@ -55,7 +55,6 @@
   },
   "dependencies": {
     "escodegen": "^2.1.0",
-    "estree-toolkit": "^1.7.13",
-    "estree-walker": "^3.0.3"
+    "estree-toolkit": "^1.7.13"
   }
 }
