@@ -10,6 +10,10 @@
     "moduleResolution": "bundler",
     "esModuleInterop": true,
 
+    "paths": {
+      "@/*": ["./src/*", "./test/*"],
+    },
+
     // Other Outputs
     "noEmit": true,
     "sourceMap": true,
