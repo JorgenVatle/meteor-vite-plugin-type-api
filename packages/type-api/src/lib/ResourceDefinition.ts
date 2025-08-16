@@ -20,11 +20,17 @@ export class ResourceDefinition implements ResourceDefinitionConfig {
         return this.config.environment;
     }
     
+    public log(level: LogLevel, ...data: any[]) {
+        console[level](`(${this.environment}) [${this.type}: ${this.name}]`, ...data);
+    }
+    
     public async run(params: any) {
         const parsed = v.parse(this.schema, params);
         return await this.config.run(parsed);
     }
 }
+
+type LogLevel = 'debug' | 'info' | 'warn' | 'error';
 
 interface ResourceDefinitionConfig {
     name: string;
