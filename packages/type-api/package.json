@@ -39,7 +39,8 @@
     "test": "vitest",
     "build": "tsup",
     "clean": "rm -rf ./dist",
-    "prepare": "npm run build || echo 'Failed to prepare build output'"
+    "prepare": "npm run build || echo 'Failed to prepare build output'",
+    "lint": "tsc --noEmit"
   },
   "devDependencies": {
     "@types/escodegen": "^0.0.10",
