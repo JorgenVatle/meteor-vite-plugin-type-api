@@ -1,18 +1,28 @@
-import type * as v from 'valibot';
+import * as v from 'valibot';
 
 export class ResourceDefinition implements ResourceDefinitionConfig {
-    public readonly type: ResourceType;
-    public readonly environment: ResourceEnvironment;
-    public readonly name: string;
-    public readonly schema: v.GenericSchema;
-    public readonly run: ResourceDefinitionConfig['run'];
     
-    constructor(config: ResourceDefinitionConfig) {
-        this.type = config.type;
-        this.environment = config.environment;
-        this.name = config.name;
-        this.schema = config.schema;
-        this.run = config.run;
+    constructor(protected readonly config: ResourceDefinitionConfig) {}
+    
+    public get type() {
+        return this.config.type;
+    }
+    
+    public get name() {
+        return this.config.name;
+    }
+    
+    public get schema() {
+        return this.config.schema;
+    }
+    
+    public get environment() {
+        return this.config.environment;
+    }
+    
+    public async run(params: any) {
+        const parsed = v.parse(this.schema, params);
+        return await this.config.run(parsed);
     }
 }
 
