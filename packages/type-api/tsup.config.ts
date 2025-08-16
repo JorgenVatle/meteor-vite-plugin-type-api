@@ -30,9 +30,9 @@ function buildConfig(options: BuildConfigOptions): Options {
 
 export default defineConfig([
     buildConfig({
-        name: 'main',
+        name: 'entry',
         platform: 'neutral',
-        entry: ['./src/common/index.ts'],
+        entry: ['./src/entry/index.ts'],
     }),
     buildConfig({
         name: 'server',

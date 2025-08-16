@@ -1,4 +1,4 @@
-import { defineMethod, definePublication } from '@/common/defineResource';
+import { defineMethod, definePublication } from '@/entry/defineResource';
 import * as v from 'valibot';
 import { describe, expectTypeOf, it } from 'vitest';
 
