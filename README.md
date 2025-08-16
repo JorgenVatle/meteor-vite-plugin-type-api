@@ -173,11 +173,10 @@ Tracker.autorun(() => {
 })
 ```
 
-## Related packages
+## Alternative packages
 - [`zodern:relay`](https://github.com/zodern/meteor-relay) - Meteor build plugin for type safe Meteor publications and methods.
-- [`meteor-vite`](https://github.com/JorgenVatle/meteor-vite) - Build Meteor apps using Vite's blazing fast build and HMR ⚡
 - [`meteor-type-validation`](https://github.com/JorgenVatle/meteor-type-validation) - Type-safe Meteor methods and publications done entirely through TypeScript types. Requires no build or compilation steps. 
-- [`@meteor-vite/plugin-zodern-relay`](https://github.com/JorgenVatle/meteor-vite/tree/release/npm-packages/%40meteor-vite/plugin-zodern-relay) - Meteor-Vite compatability plugin for [`zodern:relay`](https://github.com/zodern/meteor-relay)
+- [`@meteor-vite/plugin-zodern-relay`](https://github.com/JorgenVatle/meteor-vite/tree/release/npm-packages/%40meteor-vite/plugin-zodern-relay) - Vite compatability plugin for [`zodern:relay`](https://github.com/zodern/meteor-relay). (For apps that use [`meteor-vite`](https://github.com/JorgenVatle/meteor-vite))
 
 ## License
 MIT
