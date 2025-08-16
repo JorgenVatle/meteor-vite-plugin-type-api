@@ -33,6 +33,7 @@ export default defineConfig([
         name: 'entry',
         platform: 'neutral',
         entry: ['./src/entry/index.ts'],
+        sourcemap: true,
     }),
     buildConfig({
         name: 'server',
@@ -51,6 +52,7 @@ export default defineConfig([
         name: 'plugin',
         platform: 'node',
         entry: ['./src/plugin/index.ts'],
+        sourcemap: true,
     })
 ])
 
