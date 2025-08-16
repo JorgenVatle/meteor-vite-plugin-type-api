@@ -7,7 +7,7 @@ export class ResourceDefinition {
         protected readonly type: ResourceType,
         protected readonly config: ResourceDefinitionConfig
     ) {
-        this.log('debug', 'Initializing');
+        this.log('debug', 'Registered');
     }
     
     public get name() {
