@@ -1,4 +1,4 @@
-import { ObjectExpressionModel } from '@/ast-models/ObjectExpressionModel';
+import { ObjectExpressionModel } from '@/lib/ast-models/ObjectExpressionModel';
 import { traverse } from 'estree-toolkit';
 import { parseAst } from 'rollup/parseAst';
 import { describe, expect, it } from 'vitest';

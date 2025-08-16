@@ -1,11 +1,8 @@
-import { ApiModule } from '@/ast-models/ApiModule';
-import { USAGE_EXAMPLES } from '@/tests/_mocks/CodeSnippets';
+import { ApiModule } from '@/lib/ast-models/ApiModule';
+import { MOCK_MODULE_METHODS } from '@/test/_mocks/methods';
 import { describe, expect, it } from 'vitest';
 
-describe.each([
-    ['Named imports', USAGE_EXAMPLES.namedImport],
-    // ['Wildcard and named', USAGE_EXAMPLES.combinedImportSyntax],
-])('ApiModule: %s', (type, code) => {
+describe.each(Object.entries(MOCK_MODULE_METHODS))('ApiModule: %s', (type, code) => {
     const apiModule = ApiModule.parse({
         filePath: '/foo/test.methods.ts',
         code,

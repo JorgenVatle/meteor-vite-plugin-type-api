@@ -1,19 +1,19 @@
-import { ApiModule } from '@/ast-models/ApiModule';
-import { USAGE_EXAMPLES } from '@/tests/_mocks/CodeSnippets';
+import { ApiModule } from '@/lib/ast-models/ApiModule';
+import { MOCK_MODULE_METHODS } from '@/test/_mocks/methods';
 import { bench, describe } from 'vitest';
 
 describe('Parser', () => {
     bench('Full module', () => {
         ApiModule.parse({
             filePath: '/test/foo.methods.ts',
-            code: USAGE_EXAMPLES.namedImport,
+            code: MOCK_MODULE_METHODS['named import'],
         });
     })
     
     bench('With performance mode', () => {
         ApiModule.parse({
             filePath: '/test/foo.methods.ts',
-            code: USAGE_EXAMPLES.namedImport,
+            code: MOCK_MODULE_METHODS['named import'],
             performanceMode: true,
         });
     })
