@@ -1,63 +1,41 @@
-import * as v from 'valibot';
-import { ApiNotCompiled } from './Errors/ApiNotCompiled';
+import { resourceLabel, type ResourceType } from '@/lib/Environments';
+import type { InternalResourceConfig } from '@/lib/ResourceConfig';
 
-export type ResourceHandle<
-    TInputParams extends any[] = [],
-    TOutputParams extends any[] = [],
-    TResult = unknown
-> = {
-    type: 'method' | 'publication';
-    context: 'client' | 'server';
-    schema: v.GenericSchema<TOutputParams, TOutputParams>;
-    name: string;
-    run: (...params: TInputParams) => TResult;
-    register: (handle: (...params: any) => TResult) => void;
-};
-
-export function getLabel(handle: Pick<ResourceHandle, 'context' | 'name' | 'type'>): string {
-    return `[${handle.context} ${handle.type}] ${handle.name}`;
+type ApiResource<T = unknown> = {
+    type: ResourceType;
+    config: InternalResourceConfig<T>;
 }
 
-export function getContext() {
-    return __IS_SERVER__ ? 'server' : 'client';
-}
-
-export function defineResourceHandle<
-    TInputParams extends any[] = [],
-    TOutputParams extends any[] = [],
-    TResult = unknown
->(handle: ResourceHandle<TInputParams, TOutputParams, TResult>) {
-    const label = getLabel(handle);
-    
-    if (!__IS_SERVER__) {
-        throw new ApiNotCompiled(`Client Meteor API method has not been compiled yet! Make sure that the plugin is included in your Vite config and its named with a .methods.ts suffix or nested under a methods/ directory.`);
-    }
-    
-    console.debug(`${label} Defined resource handle`);
-    
-    function wrappedHandle(this: any, ...params: TOutputParams): any {
-        try {
-            console.debug(`${label} Incoming request: `, params);
-            const schemaOutput = v.parse(handle.schema, params);
-            return handle.run.apply(this, schemaOutput);
-        } catch (error) {
-            console.debug(`${label} Error: `, error);
-            throw error;
-        }
-    }
-    
-    function wrappedCall(this: any, ...params: TInputParams): any {
-        console.debug(`${label} Calling with params: `, params);
-        const result = handle.run.apply(this, params);
-        Promise.resolve(result).catch((error) => {
-            console.error(`${label} Error: `, error);
-        }).then(() => {
-            console.debug(`${label} Response: `, result);
-        });
+export function createRequestHandle<T>(api: ApiResource<T>) {
+    return async function (this: any, ...params: any) {
+        const label = resourceLabel(api.type, api.config);
+        console.debug(label, 'Received request', { params });
+        const result = await api.config.run.apply(this, params);
+        console.debug(label, 'Response', result);
         return result;
     }
+}
+
+export function createCallHandle(api: ApiResource, run: (...params: any) => any) {
+    const handle = function (this: any, ...params: any) {
+        const label = resourceLabel(api.type, api.config);
+        console.debug(label, 'Sending request', { params });
+        const result = run.apply(this, params);
+        Promise.resolve(result).then(result => {
+            console.debug(label, 'Received response', result);
+        })
+        return result;
+    };
     
-    handle.register(wrappedHandle);
+    Object.defineProperty(handle, 'name', {
+        value: api.config.name || api.config._defaultName,
+    });
     
-    return wrappedCall;
+    Object.assign(handle, {
+        type: api.type,
+        environment: api.config._environment,
+        run: (...params: any) => handle(...params),
+    });
+    
+    return handle;
 }
