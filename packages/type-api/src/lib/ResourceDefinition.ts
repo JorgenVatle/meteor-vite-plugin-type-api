@@ -38,13 +38,25 @@ export class ResourceDefinition {
         async function handle(this: unknown, params: any) {
             resource.log('debug', { request: params });
             
-            const parsed = v.parse(schema, params);
-            resource.log('debug', { parsedData: parsed });
-            
-            const data = await run.apply(this, [parsed]);
-            resource.log('debug', { response: data });
-            
-            return data;
+            try {
+                const parsed = v.parse(schema, params);
+                resource.log('debug', { parsedData: parsed });
+                
+                const data = await run.apply(this, [parsed]);
+                resource.log('debug', { response: data });
+                
+                return data;
+            } catch (error) {
+                if (!v.isValiError(error)) {
+                    throw error;
+                }
+                
+                const summary = v.summarize(error.issues);
+                
+                throw new Meteor.Error(400, error.message, {
+                    summary,
+                } as any);
+            }
         }
         
         return handle;
