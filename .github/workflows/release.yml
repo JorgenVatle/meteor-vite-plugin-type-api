@@ -13,7 +13,7 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repo
+      - name: Checkout
         uses: actions/checkout@v5
 
       - name: Setup Node.js
@@ -24,7 +24,7 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: Create Release Pull Request or Publish to npm
+      - name: Publish/Version Packages
         id: changesets
         uses: changesets/action@v1
         with:
