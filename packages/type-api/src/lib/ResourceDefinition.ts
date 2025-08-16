@@ -3,11 +3,10 @@ import * as v from 'valibot';
 
 export class ResourceDefinition {
     
-    constructor(protected readonly config: ResourceDefinitionConfig) {}
-    
-    public get type() {
-        return this.config.type;
-    }
+    constructor(
+        protected readonly type: ResourceType,
+        protected readonly config: ResourceDefinitionConfig
+    ) {}
     
     public get name() {
         return this.config.name || this.config._defaultName;
@@ -25,7 +24,7 @@ export class ResourceDefinition {
         console[level](`(${this.environment}) [${this.type}: ${this.name}]`, ...data);
     }
     
-    protected requestHandle() {
+    public requestHandle() {
         if (!this.config.run) {
             throw new ApiTypeError('This API resource does not have a run method defined. This method should only be called from the a server environment.')
         }
@@ -67,7 +66,7 @@ export class ResourceDefinition {
 
 type LogLevel = 'debug' | 'info' | 'warn' | 'error';
 
-interface ResourceDefinitionConfig {
+export interface ResourceDefinitionConfig {
     name?: string;
     type: ResourceType;
     schema: v.GenericSchema;

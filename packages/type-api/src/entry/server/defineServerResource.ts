@@ -1,43 +1,29 @@
 /// <reference types="meteor" />
-import { resourceLabel } from '@/lib/Environments';
 import { ClientOnly } from '@/lib/Errors';
-import type { InternalResourceConfig } from '@/lib/ResourceConfig';
-import { createCallHandle, createRequestHandle } from '@/lib/ResourceHandle';
+import { ResourceDefinition, type ResourceDefinitionConfig } from '@/lib/ResourceDefinition';
 
-export function defineMethod(config: InternalResourceConfig) {
-    const name = config.name || config._defaultName;
-    const label = resourceLabel('method', config);
+export function defineMethod(config: ResourceDefinitionConfig) {
+    const resource = new ResourceDefinition('method', config);
     
-    console.debug(`${label} Defined`);
+    resource.log('debug', 'Defined');
     
     Meteor.methods({
-        [name]: createRequestHandle({
-            config,
-            type: 'method',
-        }),
+        [resource.name]: resource.requestHandle(),
     });
     
-    return createCallHandle({
-        config,
-        type: 'method',
-    }, (...params) => Meteor.callAsync(name, ...params));
+    return resource.callHandle(
+        (...params) => Meteor.callAsync(resource.name, ...params)
+    );
 }
 
-export function definePublication(config: InternalResourceConfig<Mongo.Cursor<any>>) {
-    const name = config.name || config._defaultName;
-    const label = resourceLabel('publication', config);
+export function definePublication(config: ResourceDefinitionConfig) {
+    const resource = new ResourceDefinition('method', config);
     
-    console.debug(`${label} Defined`);
+    resource.log('debug', 'Defined');
     
-    Meteor.publish(name, createRequestHandle({
-        config,
-        type: 'publication',
-    }));
+    Meteor.publish(resource.name, resource.requestHandle());
     
-    return createCallHandle({
-        config,
-        type: 'publication',
-    }, () => {
+    return resource.callHandle(() => {
         throw new ClientOnly('This method can only be called on the client')
     });
 }
