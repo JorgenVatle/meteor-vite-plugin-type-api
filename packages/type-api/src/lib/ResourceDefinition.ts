@@ -25,12 +25,22 @@ export class ResourceDefinition {
         console[level](`(${this.environment}) [${this.type}: ${this.name}]`, ...data);
     }
     
-    public async run(params: any) {
+    protected requestHandle() {
         if (!this.config.run) {
             throw new ApiTypeError('This API resource does not have a run method defined. This method should only be called from the a server environment.')
         }
-        const parsed = v.parse(this.schema, params);
-        return await this.config.run(parsed);
+        const resource = this;
+        const run = this.config.run;
+        
+        async function handle(this: any, params: any) {
+            resource.log('debug', 'Received request', { params });
+            const parsed = v.parse(this.schema, params);
+            const result = await run.apply(this, parsed);
+            resource.log('debug', 'Response', result);
+            return result;
+        }
+        
+        return handle;
     }
     
     public callHandle(run: (...params: any) => any) {
