@@ -11,7 +11,7 @@ A Vite plugin for generating type-safe Meteor methods and publications.
 > - Relay modules are parsed with Rollup's built-in AST parser.
 > - Method and publication directories are configurable through Vite allowing for methods to be defined by either a custom file extension, directory name or both.
 > 
-> `zodern:relay` is supported by Vite through [`@meteor-vite/plugin-zodern-relay`](https://github.com/JorgenVatle/meteor-vite/tree/release/npm-packages/%40meteor-vite/plugin-zodern-relay).
+> If you want to use `zodern:relay` with Vite, instead use [`@meteor-vite/plugin-zodern-relay`](https://github.com/JorgenVatle/meteor-vite/tree/release/npm-packages/%40meteor-vite/plugin-zodern-relay).
 
  
 ## Installation
