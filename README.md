@@ -6,12 +6,13 @@
 
 A Vite plugin for generating type-safe Meteor methods and publications.
 
-> Follows the same pattern as [`zodern:relay`](https://github.com/zodern/meteor-relay) with some minor differences: 
-> - [Valibot](https://valibot.dev/) is used for schema validation as opposed to [`zod`](https://zod.dev/)
-> - Relay modules are parsed with Rollup's built-in AST parser.
-> - Method and publication directories are configurable through Vite allowing for methods to be defined by either a custom file extension, directory name or both.
-> 
-> If you want to use `zodern:relay` with Vite, instead use [`@meteor-vite/plugin-zodern-relay`](https://github.com/JorgenVatle/meteor-vite/tree/release/npm-packages/%40meteor-vite/plugin-zodern-relay).
+Follows the same pattern as [`zodern:relay`](https://github.com/zodern/meteor-relay) with some minor differences: 
+- [Valibot](https://valibot.dev/) is used for schema validation as opposed to [`zod`](https://zod.dev/)
+- Relay modules are parsed with Rollup's built-in AST parser.
+- Method and publication directories are configurable through Vite allowing for methods to be defined by either a custom file extension, directory name or both.
+
+> [!NOTE]
+> If you want to use [`zodern:relay`](https://github.com/zodern/meteor-relay) with Vite, instead use [`@meteor-vite/plugin-zodern-relay`](https://github.com/JorgenVatle/meteor-vite/tree/release/npm-packages/%40meteor-vite/plugin-zodern-relay).
 
  
 ## Installation
