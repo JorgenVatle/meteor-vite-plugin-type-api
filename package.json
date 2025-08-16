@@ -11,12 +11,15 @@
   },
   "scripts": {
     "start": "npm run build && npm run example:start",
-    "example:start": "cd example/app && npm start",
     "build": "npm run build -w packages/type-api --",
-    "test": "echo \"Error: no test specified\" && exit 1",
+
+    "test": "npm run test --ws",
+    "lint": "npm run lint --ws",
+
     "prerelease": "npm run build",
     "release": "changeset publish",
-    "lint": "npm run lint --ws"
+
+    "example:start": "cd example/app && npm start"
   },
   "workspaces": [
     "packages/type-api"
