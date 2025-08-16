@@ -32,6 +32,27 @@ export class ResourceDefinition {
         const parsed = v.parse(this.schema, params);
         return await this.config.run(parsed);
     }
+    
+    public callHandle(run: (...params: any) => any) {
+        const resource = this;
+        
+        const handle = function (this: any, ...params: any) {
+            resource.log('debug', 'Sending request', { params });
+            const result = run.apply(this, params);
+            Promise.resolve(result).then(result => {
+                resource.log('debug', 'Received response', result);
+            })
+            return result;
+        };
+        
+        Object.defineProperty(handle, 'name', {
+            value: this.name,
+        });
+        
+        Object.assign(handle, this);
+        
+        return handle;
+    }
 }
 
 type LogLevel = 'debug' | 'info' | 'warn' | 'error';
