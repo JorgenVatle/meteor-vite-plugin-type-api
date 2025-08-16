@@ -3,15 +3,6 @@ run-name: '🧪 Test: ${{ github.event.head_commit.message || github.event.pull_
 
 on:
   push:
-    branches:
-      - master
-
-concurrency: ${{ github.workflow }}-${{ github.ref }}
-
-permissions:
-  packages: write
-  pull-requests: write
-  contents: write
 
 jobs:
   test:
