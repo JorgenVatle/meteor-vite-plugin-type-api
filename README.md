@@ -2,6 +2,7 @@
 [![npm](https://img.shields.io/npm/v/@meteor-vite/type-api?style=flat-square)](https://npmjs.com/package/@meteor-vite/type-api)
 [![test](https://github.com/JorgenVatle/vite-plugin-meteor-api-types/actions/workflows/test.yml/badge.svg)](https://github.com/JorgenVatle/vite-plugin-meteor-api-types/actions/workflows/test.yml)
 [![lint](https://github.com/JorgenVatle/vite-plugin-meteor-api-types/actions/workflows/lint.yml/badge.svg)](https://github.com/JorgenVatle/vite-plugin-meteor-api-types/actions/workflows/lint.yml)
+[![release](https://github.com/JorgenVatle/vite-plugin-meteor-api-types/actions/workflows/release.yml/badge.svg)](https://github.com/JorgenVatle/vite-plugin-meteor-api-types/actions/workflows/release.yml)
 
 A Vite plugin for generating type-safe Meteor methods and publications.
 
