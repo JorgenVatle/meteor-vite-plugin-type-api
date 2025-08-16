@@ -10,10 +10,10 @@
   ],
   "exports": {
     ".": {
-      "types": "./dist/common/index.d.ts",
-      "import": "./dist/common/index.js",
-      "require": "./dist/common/index.cjs",
-      "default": "./dist/common/index.js"
+      "types": "./dist/main/index.d.ts",
+      "import": "./dist/main/index.js",
+      "require": "./dist/main/index.cjs",
+      "default": "./dist/main/index.js"
     },
     "./client": {
       "import": "./dist/client/index.js",
