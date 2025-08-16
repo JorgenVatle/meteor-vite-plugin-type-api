@@ -24,6 +24,21 @@ import meteorApiTypes from '@meteor-vite/api-types/plugin';
 export default defineConfig({
     plugins: [
         meteorApiTypes({
+            // ...
+        }),
+    ]
+})
+```
+
+<details>
+<summary>View all configuration options</summary>
+
+```typescript
+import meteorApiTypes from '@meteor-vite/api-types/plugin';
+
+export default defineConfig({
+    plugins: [
+        meteorApiTypes({
             /**
              * Treats the provided directory names as Meteor methods/publications.
              * @optional
@@ -38,6 +53,7 @@ export default defineConfig({
                  * @default methods
                  */
                 methods: string;
+                
                 /**
                  * Parent directory for Meteor publications.
                  *
@@ -63,6 +79,7 @@ export default defineConfig({
                  * @default .methods.ts
                  */
                 methods: string;
+                
                 /**
                  * File extension for Meteor publications.
                  *
@@ -77,6 +94,8 @@ export default defineConfig({
     ]
 })
 ```
+
+</details>
 
 ## Methods
 
