@@ -1,4 +1,4 @@
-import { defineMethod } from '@/common/defineResource';
+import { defineMethod, definePublication } from '@/common/defineResource';
 import * as v from 'valibot';
 import { describe, expectTypeOf, it } from 'vitest';
 
@@ -36,5 +36,22 @@ describe('defineMethod', () => {
             }>
         >();
     })
+})
+
+describe('definePublication', () => {
+    const collection = new Mongo.Collection('links');
+    const getLinks = definePublication({
+        schema: v.object({
+            category: v.string(),
+        }),
+        run: (query) => {
+            return collection.find(query);
+        }
+    });
     
+    it('does not yield a promise when called', () => {
+        expectTypeOf(getLinks({ category: 'foo' })).toEqualTypeOf<
+            Meteor.SubscriptionHandle
+        >();
+    })
 })
