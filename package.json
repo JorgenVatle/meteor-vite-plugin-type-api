@@ -21,6 +21,7 @@
     "packages/type-api"
   ],
   "devDependencies": {
+    "@changesets/cli": "^2.29.6",
     "@typescript/native-preview": "^7.0.0-dev.20250813.1"
   }
 }
