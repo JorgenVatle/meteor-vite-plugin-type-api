@@ -180,4 +180,6 @@ Tracker.autorun(() => {
 - [`@meteor-vite/plugin-zodern-relay`](https://github.com/JorgenVatle/meteor-vite/tree/release/npm-packages/%40meteor-vite/plugin-zodern-relay) - Vite compatability plugin for [`zodern:relay`](https://github.com/zodern/meteor-relay). (For apps that use [`meteor-vite`](https://github.com/JorgenVatle/meteor-vite))
 
 ## License
-MIT
+This repository is licensed under the MIT license.
+
+Copyright (c) 2025, Jørgen Vatle
