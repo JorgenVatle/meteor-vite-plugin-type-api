@@ -15,7 +15,7 @@ export function isSupportedEnvironment(target: TargetEnvironment) {
 
 export type ResourceType = 'method' | 'publication';
 export function resourceLabel(type: ResourceType, config: InternalResourceConfig): string {
-    return `(${config._environment.toUpperCase()}) [${type}:${config.name || config._defaultName}]`;
+    return `(${config._environment.toUpperCase()}) [${type}: ${config.name || config._defaultName}]`;
 }
 
 export const ENTRY_MODULE: Record<TargetEnvironment, string> = {
