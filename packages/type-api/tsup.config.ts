@@ -38,12 +38,14 @@ export default defineConfig([
         name: 'server',
         platform: 'node',
         entry: ['./src/server/index.ts'],
+        dts: false,
     }),
     buildConfig({
         name: 'client',
         platform: 'browser',
         treeshake: 'smallest',
         entry: ['./src/client/index.ts'],
+        dts: false,
     }),
     buildConfig({
         name: 'plugin',
