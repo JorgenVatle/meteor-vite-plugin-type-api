@@ -51,11 +51,13 @@ export class ResourceDefinition {
                     throw error;
                 }
                 
-                const summary = v.summarize(error.issues);
-                
-                throw new Meteor.Error(400, error.message, {
-                    summary,
+                const errorSummary = new Meteor.Error(400, error.message, {
+                    summary: v.summarize(error.issues),
                 } as any);
+                
+                resource.log('error', { errorSummary, error });
+                
+                throw errorSummary;
             }
         }
         
