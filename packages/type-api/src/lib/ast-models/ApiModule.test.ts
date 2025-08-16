@@ -37,7 +37,7 @@ describe.each(Object.entries(MOCK_MODULE_METHODS))('ApiModule: %s', (type, code)
         });
         
         it.skipIf(skip)('Rewrites library import paths', () => {
-            expect('code').toContain(ENTRY_MODULE.client);
+            expect(apiModule.code).toContain(ENTRY_MODULE.client);
         })
     })
     
