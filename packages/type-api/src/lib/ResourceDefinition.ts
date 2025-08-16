@@ -6,7 +6,9 @@ export class ResourceDefinition {
     constructor(
         protected readonly type: ResourceType,
         protected readonly config: ResourceDefinitionConfig
-    ) {}
+    ) {
+        this.log('debug', 'Initializing');
+    }
     
     public get name() {
         return this.config.name || this.config._defaultName;

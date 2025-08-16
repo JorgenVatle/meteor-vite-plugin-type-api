@@ -5,8 +5,6 @@ import { ResourceDefinition, type ResourceDefinitionConfig } from '@/lib/Resourc
 export function defineMethod(config: ResourceDefinitionConfig) {
     const resource = new ResourceDefinition('method', config);
     
-    resource.log('debug', 'Defined');
-    
     Meteor.methods({
         [resource.name]: resource.requestHandle(),
     });
@@ -18,8 +16,6 @@ export function defineMethod(config: ResourceDefinitionConfig) {
 
 export function definePublication(config: ResourceDefinitionConfig) {
     const resource = new ResourceDefinition('method', config);
-    
-    resource.log('debug', 'Defined');
     
     Meteor.publish(resource.name, resource.requestHandle());
     
