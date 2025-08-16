@@ -1,4 +1,10 @@
 # @meteor-vite/type-api
+<p>
+    <a href="https://npmjs.com/package/@meteor-vite/type-api">
+        <img alt="npm" src="https://img.shields.io/npm/v/@meteor-vite/type-api?style=flat-square">
+   </a>
+</p>
+
 A Vite plugin for generating type-safe Meteor methods and publications.
 
 > Follows the same pattern as [`zodern:relay`](https://github.com/zodern/meteor-relay) with some minor differences: 
@@ -9,13 +15,6 @@ A Vite plugin for generating type-safe Meteor methods and publications.
 > `zodern:relay` is supported by Vite through [`@meteor-vite/plugin-zodern-relay`](https://github.com/JorgenVatle/meteor-vite/tree/release/npm-packages/%40meteor-vite/plugin-zodern-relay).
 
  
-<p>
-    <a href="https://npmjs.com/package/@meteor-vite/type-api">
-        <img alt="npm" src="https://img.shields.io/npm/v/@meteor-vite/type-api?style=flat-square">
-   </a>
-</p>
-
-
 ## Installation
 
 Add the package to your project:
