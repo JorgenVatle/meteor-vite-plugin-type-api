@@ -18,7 +18,7 @@ describe.each(Object.entries(MOCK_MODULE_METHODS))('ApiModule: %s', (type, code)
     })
     
     it('parses method names', () => {
-        expect(apiModule.info.methods[0].name).toEqual('links.create')
+        expect(apiModule.info.methods[0]?.name).toEqual('links.create')
     });
     
     describe('Client transforms', () => {
@@ -41,27 +41,27 @@ describe.each(Object.entries(MOCK_MODULE_METHODS))('ApiModule: %s', (type, code)
     
     describe('ResourceDefinition: Client', () => {
         const method = apiModule.info.methods[0];
-        method.transform('client');
+        method?.transform('client');
         
         it('generates method client code', () => {
-            console.log(method.code);
-            expect(method.code).toContain('links.create');
+            console.log(method?.code);
+            expect(method?.code).toContain('links.create');
         });
         
         it('strips out server-side code', () => {
-            expect(method.code).not.toContain('console');
-            expect(method.code).not.toContain('This should be omitted');
-            expect(method.code).not.toContain('handle');
+            expect(method?.code).not.toContain('console');
+            expect(method?.code).not.toContain('This should be omitted');
+            expect(method?.code).not.toContain('handle');
         });
         
         it('assigns a defaultName to defineMethod calls', () => {
-            expect(method.code).to.contain('_defaultName');
+            expect(method?.code).to.contain('_defaultName');
         });
         
         it('has a default name', () => {
-            expect(method.defaultName).toBeTruthy();
-            expect(method.defaultName).toContain('test');
-            expect(method.defaultName).toContain('createLink');
+            expect(method?.defaultName).toBeTruthy();
+            expect(method?.defaultName).toContain('test');
+            expect(method?.defaultName).toContain('createLink');
         })
     })
     
