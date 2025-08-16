@@ -38,14 +38,14 @@ export default defineConfig([
     buildConfig({
         name: 'internal/server',
         platform: 'node',
-        entry: ['./src/server/index.ts'],
+        entry: ['./src/entry/server/index.ts'],
         dts: false,
     }),
     buildConfig({
         name: 'internal/client',
         platform: 'browser',
         treeshake: 'smallest',
-        entry: ['./src/client/index.ts'],
+        entry: ['./src/entry/client/index.ts'],
         dts: false,
     }),
     buildConfig({
