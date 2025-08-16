@@ -5,7 +5,7 @@ export const MOCK_MODULE_METHODS = {
         
         export const createLink = defineMethod({
             name: 'links.create',
-            method: () => {
+            run: () => {
                 return {
                     myLink: { href: 'http://example.com' }
                 }
@@ -14,7 +14,7 @@ export const MOCK_MODULE_METHODS = {
         
         export const updateLink = defineMethod({
             name: 'links.update',
-            method: (params) => {
+            run: (params) => {
                 return 'this should be omitted from client script';
             }
         })
@@ -26,7 +26,7 @@ export const MOCK_MODULE_METHODS = {
         
         export const createLink = TypeApi.defineMethod({
             name: 'links.create',
-            method: () => {
+            run: () => {
                 return {
                     myLink: { href: 'http://example.com' }
                 }
@@ -35,7 +35,7 @@ export const MOCK_MODULE_METHODS = {
         
         export const updateLink = TypeApi.defineMethod({
             name: 'links.update',
-            method: (params) => {
+            run: (params) => {
                 return 'this should be omitted from client script';
             }
         })
@@ -47,7 +47,7 @@ export const MOCK_MODULE_METHODS = {
         
         export const createLink = TypeApi.defineMethod({
             name: 'links.create',
-            method: () => {
+            run: () => {
                 return {
                     myLink: { href: 'http://example.com' }
                 }
@@ -56,7 +56,7 @@ export const MOCK_MODULE_METHODS = {
         
         export const updateLink = TypeApi.defineMethod({
             name: 'links.update',
-            method: (params) => {
+            run: (params) => {
                 return 'this should be omitted from client script';
             }
         })
