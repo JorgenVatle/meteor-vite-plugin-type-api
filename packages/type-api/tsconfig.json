@@ -11,7 +11,8 @@
     "esModuleInterop": true,
 
     "paths": {
-      "@/*": ["./src/*", "./test/*"],
+      "@/*": ["./src/*"],
+      "@/test/*": ["./test/*"],
     },
 
     // Other Outputs
