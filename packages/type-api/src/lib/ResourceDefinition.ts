@@ -36,13 +36,13 @@ export class ResourceDefinition {
         const run = this.config.run;
         
         async function handle(this: unknown, params: any) {
-            resource.log('debug', 'Received request', { params, schema });
+            resource.log('debug', { request: params });
             
             const parsed = v.parse(schema, params);
-            resource.log('debug', 'Parsed request', { parsed });
+            resource.log('debug', { parsedData: parsed });
             
             const data = await run.apply(this, [parsed]);
-            resource.log('debug', 'Response', { data });
+            resource.log('debug', { response: data });
             
             return data;
         }
